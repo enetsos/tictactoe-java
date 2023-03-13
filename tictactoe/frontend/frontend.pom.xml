@@ -17,11 +17,11 @@
     </properties>
 
     <dependencies>
-        <!--dependency>
+        <dependency>
             <groupId>ch.supsi.tictactoe</groupId>
             <artifactId>backend</artifactId>
             <version>1.0.0</version>
-        </dependency-->
+        </dependency>
 
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -29,6 +29,14 @@
             <version>17.0.2</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>17.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -49,7 +57,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ch.supsi.tictactoe.App</mainClass>
+                            <mainClass>ch.supsi.tictactoe.AppHello</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
