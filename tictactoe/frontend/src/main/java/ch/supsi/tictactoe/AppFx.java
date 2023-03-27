@@ -21,7 +21,6 @@ public class AppFx extends Application {
 
         Parent root = FXMLLoader.load(fxml);
         Scene scene = new Scene(root, 600, 629);
-        //Set the minimum size of the window
         stage.setResizable(false);
 
         stage.setScene(scene);
