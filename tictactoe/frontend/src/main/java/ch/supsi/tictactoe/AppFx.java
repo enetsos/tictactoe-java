@@ -11,7 +11,7 @@ import java.net.URL;
 public class AppFx extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        URL fxml = getClass().getResource("tictactoe.fxml");
+        URL fxml = getClass().getResource("/tictactoe.fxml");
         if (fxml == null) {
             return;
         }
@@ -21,6 +21,8 @@ public class AppFx extends Application {
 
         Parent root = FXMLLoader.load(fxml);
         Scene scene = new Scene(root, 600, 629);
+        //Set the minimum size of the window
+        stage.setResizable(false);
 
         stage.setScene(scene);
         stage.show();
