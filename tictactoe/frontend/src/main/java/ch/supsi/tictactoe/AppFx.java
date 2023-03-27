@@ -9,8 +9,14 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 public class AppFx extends Application {
+
+    private static Stage stage;
+    public static Stage getStage() {
+        return stage;
+    }
     @Override
     public void start(Stage stage) throws Exception {
+        this.stage = stage;
         URL fxml = getClass().getResource("/tictactoe.fxml");
         if (fxml == null) {
             return;
