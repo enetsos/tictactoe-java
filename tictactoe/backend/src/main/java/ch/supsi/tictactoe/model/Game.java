@@ -10,8 +10,12 @@ public class Game {
         gameLogic = new GameLogic(gameSettings);
     }
 
-    public void playerAction(int x, int y){
-        gameLogic.playerAction(x, y);
+    public boolean playerAction(int x, int y){
+        return gameLogic.playerAction(x, y);
+    }
+
+    public GameLogic getGameLogic() {
+        return gameLogic;
     }
 
 }
