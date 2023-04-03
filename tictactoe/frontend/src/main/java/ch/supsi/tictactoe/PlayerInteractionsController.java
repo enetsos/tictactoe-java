@@ -36,6 +36,7 @@ public class PlayerInteractionsController {
 
     @FXML
     public void showAbout(ActionEvent e) {
+        About.showAbout();
     }
 
     @FXML
