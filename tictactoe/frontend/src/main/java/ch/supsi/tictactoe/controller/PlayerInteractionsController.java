@@ -61,7 +61,7 @@ public class PlayerInteractionsController {
         String id = button.getId();
         int row = Integer.parseInt(id.substring(1, 2));
         int col = Integer.parseInt(id.substring(2, 3));
-        if(game.playerAction(row, col)){
+        if(game.getGameLogic().playerAction(row, col)){
             button.setText(String.valueOf(game.getGameLogic().getGameMatrix()[row][col]));
         }else{
             System.out.println("Error: cell already occupied");
