@@ -41,5 +41,6 @@ public class PlayerInteractionsController {
 
     @FXML
     public void playerAction(ActionEvent e) {
+
     }
 }
