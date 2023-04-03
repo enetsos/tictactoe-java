@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:controller="ch.supsi.tictactoe.PlayerInteractionsController" prefHeight="629.0" prefWidth="600.0"
+<Pane fx:controller="ch.supsi.tictactoe.controller.PlayerInteractionsController" prefHeight="629.0" prefWidth="600.0"
       xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
     <!-- MENU -->

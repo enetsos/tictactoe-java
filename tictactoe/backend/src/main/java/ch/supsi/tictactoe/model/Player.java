@@ -2,25 +2,23 @@ package ch.supsi.tictactoe.model;
 
 public abstract class Player {
 
-    private String symbol;
+    private char symbol;
 
-    private Boolean round;
+    private boolean round;
 
-    public Player(String symbol, Boolean round) {
+    private char[][] gameMatrix;
+
+    public Player(char symbol, char[][] gameMatrix) {
         this.symbol = symbol;
-        this.round = round;
+        this.gameMatrix = gameMatrix;
     }
 
-    public String getSymbol() {
+    public Player(char[][] gameMatrix) {
+        this.gameMatrix = gameMatrix;
+    }
+
+    public char getSymbol() {
         return symbol;
     }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public abstract Boolean isRound();
-
-    public abstract void setRound(Boolean round);
 
 }

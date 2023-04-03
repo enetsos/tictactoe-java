@@ -2,20 +2,15 @@ package ch.supsi.tictactoe.model;
 
 public class User extends Player {
 
-    private static final String DEFAULT_SYMBOL = "X";
-    private static Boolean round = true;
+    public static final char DEFAULT_SYMBOL = 'X';
 
-    public User() {
-        super(DEFAULT_SYMBOL, User.round);
+    public User(char[][] gameMatrix) {
+        super(DEFAULT_SYMBOL, gameMatrix);
     }
 
-    @Override
-    public Boolean isRound() {
-        return User.round;
+    public User(char symbol, char[][] gameMatrix) {
+        super(symbol, gameMatrix);
     }
 
-    @Override
-    public void setRound(Boolean round) {
-        User.round = round;
-    }
+    public boolean play (int row, int column){return true;}
 }

@@ -1,20 +1,16 @@
 package ch.supsi.tictactoe.model;
 
 public class Ai extends Player{
-    private static final String DEFAULT_SYMBOL = "O";
-    private static  Boolean round = false;
+    public static final char DEFAULT_SYMBOL = 'O';
 
-    public Ai() {
-        super(DEFAULT_SYMBOL, Ai.round);
+    public Ai(char[][] gameMatrix) {
+        super(DEFAULT_SYMBOL, gameMatrix);
     }
 
-    @Override
-    public Boolean isRound() {
-        return Ai.round;
+    public Ai(char symbol, char[][] gameMatrix) {
+        super(symbol, gameMatrix);
     }
 
-    @Override
-    public void setRound(Boolean round) {
-        Ai.round = round;
-    }
+    public void play (){}
+
 }
