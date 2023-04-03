@@ -36,7 +36,7 @@ public class PlayerInteractionsController {
 
     @FXML
     public void showAbout(ActionEvent e) {
-        About.showAbout(AppFx.getStage());
+        About.showAbout();
     }
 
     @FXML

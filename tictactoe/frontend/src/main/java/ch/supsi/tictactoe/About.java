@@ -1,7 +1,6 @@
 package ch.supsi.tictactoe;
 
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 
 public class About {
 
@@ -12,7 +11,7 @@ public class About {
     };
     private static String version = "0.0.1";
 
-    public static void showAbout(Stage stage) {
+    public static void showAbout() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
         alert.setHeaderText("About Tic Tac Toe");
@@ -22,3 +21,4 @@ public class About {
         alert.showAndWait();
     }
 }
+
