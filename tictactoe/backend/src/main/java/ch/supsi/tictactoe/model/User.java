@@ -12,5 +12,13 @@ public class User extends Player {
         super(symbol, gameMatrix);
     }
 
-    public boolean play (int row, int column){return true;}
+    public boolean play (int row, int column){
+        if(gameMatrix[row][column] != 0){
+            System.out.println("Error: cell already occupied");
+            return false;
+        }
+        gameMatrix[row][column] = symbol;
+        System.out.println("Player played: " + row + " " + column);
+        return true;
+    }
 }

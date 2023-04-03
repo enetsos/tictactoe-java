@@ -10,4 +10,8 @@ public class Game {
         gameLogic = new GameLogic(gameSettings);
     }
 
+    public void playerAction(int x, int y){
+        gameLogic.playerAction(x, y);
+    }
+
 }

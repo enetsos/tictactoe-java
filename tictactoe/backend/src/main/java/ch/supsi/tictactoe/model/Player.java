@@ -2,11 +2,11 @@ package ch.supsi.tictactoe.model;
 
 public abstract class Player {
 
-    private char symbol;
+    protected char symbol;
 
     private boolean round;
 
-    private char[][] gameMatrix;
+    protected char[][] gameMatrix;
 
     public Player(char symbol, char[][] gameMatrix) {
         this.symbol = symbol;

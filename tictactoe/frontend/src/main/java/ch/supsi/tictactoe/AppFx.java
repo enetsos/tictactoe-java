@@ -1,5 +1,7 @@
 package ch.supsi.tictactoe;
 
+import ch.supsi.tictactoe.controller.PlayerInteractionsController;
+import ch.supsi.tictactoe.model.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,27 +12,26 @@ import java.net.URL;
 
 public class AppFx extends Application {
 
-    private static Stage stage;
-    public static Stage getStage() {
-        return stage;
-    }
     @Override
     public void start(Stage stage) throws Exception {
-        this.stage = stage;
         URL fxml = getClass().getResource("/tictactoe.fxml");
         if (fxml == null) {
             return;
         }
 
-        String s = AppHello.hello();
-        System.out.println(s);
+        Game game = new Game();
 
-        Parent root = FXMLLoader.load(fxml);
+        FXMLLoader loader = new FXMLLoader(fxml);
+
+        Parent root = loader.load();
+        ((PlayerInteractionsController)loader.getController()).setGame(game);
+
         Scene scene = new Scene(root, 600, 629);
         stage.setResizable(false);
 
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {

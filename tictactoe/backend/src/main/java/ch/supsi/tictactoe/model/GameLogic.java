@@ -20,6 +20,10 @@ public class GameLogic {
         return gameMatrix;
     }
 
+    public boolean playerAction(int x, int y){
+        return ((User)players[0]).play(x, y);
+    }
+
     private void checkWin(){
     }
 }
