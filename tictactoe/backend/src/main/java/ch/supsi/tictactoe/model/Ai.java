@@ -3,6 +3,11 @@ package ch.supsi.tictactoe.model;
 public class Ai extends Player{
     public static final char DEFAULT_SYMBOL = 'O';
 
+    private int played = 0;
+
+    private int nextRow = -1;
+    private int nextCol = -1;
+
     public Ai(char[][] gameMatrix) {
         super(DEFAULT_SYMBOL, gameMatrix);
     }
@@ -12,32 +17,122 @@ public class Ai extends Player{
     }
 
     public boolean play (){
-        boolean played = false;
 
-        if(!freeSpace()){
+        int freeCells = countFreeCells();
+
+        if(freeCells == 0){
             return false;
         }
 
-        while(!played){
-
-            int row = (int) (Math.random() * 3);
-            int col = (int) (Math.random() * 3);
-            if(gameMatrix[row][col] == 0){
-                gameMatrix[row][col] = symbol;
-                return true;
+        if(checkWin()){
+            gameMatrix[nextRow][nextCol] = symbol;
+        } else if(checkWin('X')){
+            gameMatrix[nextRow][nextCol] = symbol;
+        }else{
+            nextRow = (int) (Math.random() * 3);
+            nextCol = (int) (Math.random() * 3);
+            while(gameMatrix[nextRow][nextCol] != 0){
+                nextRow = (int) (Math.random() * 3);
+                nextCol = (int) (Math.random() * 3);
             }
+            gameMatrix[nextRow][nextCol] = symbol;
         }
+
         return true;
     }
 
-    private boolean freeSpace(){
+    private int countFreeCells(){
+        int count = 0;
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
                 if(gameMatrix[i][j] == 0){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private boolean checkWin(){
+        return checkWin(symbol);
+    }
+
+    private boolean checkWin(char symbol){
+        int count = 0;
+
+        // Check rows
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                if(gameMatrix[i][j] == symbol){
+                    count++;
+                }
+            }
+
+            if(count == 2){
+                for(int j = 0; j < 3; j++){
+                    if(gameMatrix[i][j] == 0){
+                        nextRow = i;
+                        nextCol = j;
+                        return true;
+                    }
+                }
+            }
+            count = 0;
+        }
+
+        // Check columns
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                if(gameMatrix[j][i] == symbol){
+                    count++;
+                }
+            }
+
+            if(count == 2){
+                for(int j = 0; j < 3; j++){
+                    if(gameMatrix[j][i] == 0){
+                        nextRow = j;
+                        nextCol = i;
+                        return true;
+                    }
+                }
+            }
+            count = 0;
+        }
+
+        //Check diagonals
+        for(int i = 0; i < 3; i++){
+            if(gameMatrix[i][i] == symbol){
+                count++;
+            }
+        }
+        if(count == 2){
+            for(int i = 0; i < 3; i++){
+                if(gameMatrix[i][i] == 0){
+                    nextRow = i;
+                    nextCol = i;
                     return true;
                 }
             }
         }
+
+        count = 0;
+        for(int i = 0; i < 3; i++){
+            if(gameMatrix[i][2-i] == symbol){
+                count++;
+            }
+        }
+        if(count == 2){
+            for(int i = 0; i < 3; i++){
+                if(gameMatrix[i][2-i] == 0){
+                    nextRow = i;
+                    nextCol = 2-i;
+                    return true;
+                }
+            }
+        }
+
+
         return false;
     }
 
