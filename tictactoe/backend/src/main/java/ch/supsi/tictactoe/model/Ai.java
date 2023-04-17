@@ -58,17 +58,21 @@ public class Ai extends Player{
     }
 
     private boolean checkWin(char symbol){
-        int count = 0;
+        int countRow = 0;
+        int countCol = 0;
 
-        // Check rows
+        // Check rows and columns
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
                 if(gameMatrix[i][j] == symbol){
-                    count++;
+                    countRow++;
+                }
+                if(gameMatrix[j][i] == symbol){
+                    countCol++;
                 }
             }
 
-            if(count == 2){
+            if(countRow == 2){
                 for(int j = 0; j < 3; j++){
                     if(gameMatrix[i][j] == 0){
                         nextRow = i;
@@ -77,18 +81,7 @@ public class Ai extends Player{
                     }
                 }
             }
-            count = 0;
-        }
-
-        // Check columns
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
-                if(gameMatrix[j][i] == symbol){
-                    count++;
-                }
-            }
-
-            if(count == 2){
+            if(countCol == 2){
                 for(int j = 0; j < 3; j++){
                     if(gameMatrix[j][i] == 0){
                         nextRow = j;
@@ -97,16 +90,21 @@ public class Ai extends Player{
                     }
                 }
             }
-            count = 0;
+            countRow = 0;
+            countCol = 0;
         }
 
+        //int count = 0;
         //Check diagonals
         for(int i = 0; i < 3; i++){
             if(gameMatrix[i][i] == symbol){
-                count++;
+                countRow++;
+            }
+            if(gameMatrix[i][2-i] == symbol){
+                countCol++;
             }
         }
-        if(count == 2){
+        if(countRow == 2){
             for(int i = 0; i < 3; i++){
                 if(gameMatrix[i][i] == 0){
                     nextRow = i;
@@ -115,14 +113,7 @@ public class Ai extends Player{
                 }
             }
         }
-
-        count = 0;
-        for(int i = 0; i < 3; i++){
-            if(gameMatrix[i][2-i] == symbol){
-                count++;
-            }
-        }
-        if(count == 2){
+        if(countCol == 2){
             for(int i = 0; i < 3; i++){
                 if(gameMatrix[i][2-i] == 0){
                     nextRow = i;
@@ -131,7 +122,6 @@ public class Ai extends Player{
                 }
             }
         }
-
 
         return false;
     }
