@@ -69,10 +69,10 @@ public class PlayerInteractionsController {
         int row = Integer.parseInt(id.substring(1, 2));
         int col = Integer.parseInt(id.substring(2, 3));
         if(game.getGameLogic().playerAction(row, col)) {
-            update();
         }else{
             System.out.println("Error: cell already occupied");
         }
+        update();
     }
 
     private void update(){
