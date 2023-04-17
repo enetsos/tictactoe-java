@@ -66,7 +66,6 @@ public class PlayerInteractionsController {
         Button button = (Button) e.getSource();
 
         String id = button.getId();
-        System.out.println(id);
         int row = Integer.parseInt(id.substring(1, 2));
         int col = Integer.parseInt(id.substring(2, 3));
         if(game.getGameLogic().playerAction(row, col)) {

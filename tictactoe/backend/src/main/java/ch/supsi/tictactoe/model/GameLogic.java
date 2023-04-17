@@ -7,6 +7,7 @@ public class GameLogic {
 
     private char[][] gameMatrix;
 
+
     public GameLogic(GameSettings gameSettings) {
         gameMatrix = new char[3][3];
         this.players = new Player[2];
@@ -22,13 +23,19 @@ public class GameLogic {
 
     public boolean playerAction(int x, int y){
         if(((User)players[0]).play(x, y)) {
-            ((Ai)players[1]).play();
-            return true;
+            if(((Ai)players[1]).play()){
+                checkWin();
+                return false;
+            }else{
+                return true;
+            }
         }
         return false;
 
     }
 
+
     private void checkWin(){
+
     }
 }
