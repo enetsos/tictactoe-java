@@ -7,14 +7,20 @@ import ch.supsi.tictactoe.model.Player;
 import ch.supsi.tictactoe.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 public class PlayerInteractionsController {
 
     private Game game;
+    private Scene scene;
 
     public void setGame(Game game){
         this.game = game;
+    }
+
+    public void setScene(Scene scene){
+        this.scene = scene;
     }
 
 
@@ -58,13 +64,27 @@ public class PlayerInteractionsController {
             return;
         }
         Button button = (Button) e.getSource();
+
         String id = button.getId();
+        System.out.println(id);
         int row = Integer.parseInt(id.substring(1, 2));
         int col = Integer.parseInt(id.substring(2, 3));
-        if(game.getGameLogic().playerAction(row, col)){
-            button.setText(String.valueOf(game.getGameLogic().getGameMatrix()[row][col]));
+        if(game.getGameLogic().playerAction(row, col)) {
+            update();
         }else{
             System.out.println("Error: cell already occupied");
         }
+    }
+
+    private void update(){
+        char[][] gameMatrix = game.getGameLogic().getGameMatrix();
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                Button b = (Button) scene.lookup("#b" + i + j);
+                b.setText(String.valueOf(gameMatrix[i][j]));
+            }
+        }
+
+
     }
 }

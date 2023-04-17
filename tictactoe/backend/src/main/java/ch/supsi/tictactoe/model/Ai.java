@@ -11,6 +11,19 @@ public class Ai extends Player{
         super(symbol, gameMatrix);
     }
 
-    public void play (){}
+    public boolean play (){
+        boolean played = false;
+        while(!played){
+
+            int row = (int) (Math.random() * 3);
+            int col = (int) (Math.random() * 3);
+            if(gameMatrix[row][col] == 0){
+                System.out.println("AIAction: " + row + " " + col);
+                gameMatrix[row][col] = symbol;
+                return true;
+            }
+        }
+        return true;
+    }
 
 }
