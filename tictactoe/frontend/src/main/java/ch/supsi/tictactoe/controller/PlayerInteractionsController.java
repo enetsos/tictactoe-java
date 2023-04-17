@@ -9,11 +9,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
+
+import java.io.File;
 
 public class PlayerInteractionsController {
 
     private Game game;
     private Scene scene;
+
+    private File file;
 
     public void setGame(Game game){
         this.game = game;
@@ -35,10 +40,25 @@ public class PlayerInteractionsController {
 
     @FXML
     public void saveGame(ActionEvent e) {
+        if(file != null){
+            game.saveGame(file);
+        }else{
+            saveGameAs(e);
+        }
     }
 
     @FXML
     public void saveGameAs(ActionEvent e) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Game");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Tic Tac Toe Game", "*.ttt")
+        );
+        File file = fileChooser.showSaveDialog(scene.getWindow());
+        if(file != null){
+            this.file = file;
+            game.saveGame(file);
+        }
     }
 
     @FXML

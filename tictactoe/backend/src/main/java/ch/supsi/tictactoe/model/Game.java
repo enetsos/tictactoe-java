@@ -1,5 +1,7 @@
 package ch.supsi.tictactoe.model;
 
+import java.io.File;
+
 public class Game {
     private GameLogic gameLogic;
 
@@ -12,6 +14,10 @@ public class Game {
 
     public GameLogic getGameLogic() {
         return gameLogic;
+    }
+
+    public boolean saveGame(File file){
+        return GameSaver.save(file, gameLogic);
     }
 
 }

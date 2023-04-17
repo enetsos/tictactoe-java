@@ -1,5 +1,7 @@
 package ch.supsi.tictactoe.model;
 
+import java.io.File;
+
 public class GameLogic {
     private Player[] players;
 
@@ -33,7 +35,6 @@ public class GameLogic {
         return false;
 
     }
-
 
     private void checkWin(){
 
