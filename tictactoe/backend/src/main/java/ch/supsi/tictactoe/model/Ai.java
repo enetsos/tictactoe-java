@@ -3,8 +3,6 @@ package ch.supsi.tictactoe.model;
 public class Ai extends Player{
     public static final char DEFAULT_SYMBOL = 'O';
 
-    private int played = 0;
-
     private int nextRow = -1;
     private int nextCol = -1;
 
