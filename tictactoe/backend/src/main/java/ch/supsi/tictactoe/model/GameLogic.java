@@ -24,10 +24,10 @@ public class GameLogic {
     public boolean playerAction(int x, int y){
         if(((User)players[0]).play(x, y)) {
             if(((Ai)players[1]).play()){
+                return true;
+            }else{
                 checkWin();
                 return false;
-            }else{
-                return true;
             }
         }
         return false;
