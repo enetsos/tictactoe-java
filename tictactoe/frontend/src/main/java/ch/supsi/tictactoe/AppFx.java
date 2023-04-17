@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -35,6 +36,13 @@ public class AppFx extends Application {
 
         stage.setScene(scene);
         stage.show();
+
+        //Welcome Alert
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Tic Tac Toe");
+        alert.setHeaderText("Welcome to Tic Tac Toe!");
+        alert.setContentText("Click on the board to place your symbol.");
+        alert.showAndWait();
 
     }
 
