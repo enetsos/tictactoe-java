@@ -1,10 +1,8 @@
 package ch.supsi.tictactoe.controller;
 
 import ch.supsi.tictactoe.About;
-import ch.supsi.tictactoe.model.Ai;
+import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.model.Game;
-import ch.supsi.tictactoe.model.Player;
-import ch.supsi.tictactoe.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -13,7 +11,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
-public class PlayerInteractionsController {
+public class PlayerInteractionsController implements GameListener {
 
     private Game game;
     private Scene scene;
@@ -36,6 +34,16 @@ public class PlayerInteractionsController {
 
     @FXML
     public void openGame(ActionEvent e) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Game");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Tic Tac Toe Game", "*.ttt")
+        );
+        File file = fileChooser.showOpenDialog(scene.getWindow());
+        if(file != null){
+            this.file = file;
+            game.loadGame(file);
+        }
     }
 
     @FXML
@@ -95,7 +103,7 @@ public class PlayerInteractionsController {
         update();
     }
 
-    private void update(){
+    public void update(){
         char[][] gameMatrix = game.getGameLogic().getGameMatrix();
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
@@ -103,7 +111,5 @@ public class PlayerInteractionsController {
                 b.setText(String.valueOf(gameMatrix[i][j]));
             }
         }
-
-
     }
 }

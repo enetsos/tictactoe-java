@@ -21,4 +21,8 @@ public abstract class Player {
         return symbol;
     }
 
+    public void setGameMatrix(char[][] gameMatrix){
+        this.gameMatrix = gameMatrix;
+    }
+
 }
