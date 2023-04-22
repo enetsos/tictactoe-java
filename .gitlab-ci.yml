@@ -66,9 +66,9 @@ frontend-package:
     - cd tictactoe
     - cd frontend
   script:
-    - 'mvn $MAVEN_CLI_OPTS clean'
+    - 'mvn $MAVEN_CLI_OPTS -f frontend.pom.xml clean package'
 #    - 'mvn install:install-file -Dfile=../backend/target/backend-1.0.0.jar -DgroupId=ch.supsi.localchat -DartifactId=backend -Dversion=1.0.0 -Dpackaging=jar'
-    - 'mvn $MAVEN_CLI_OPTS package'
+#   - 'mvn $MAVEN_CLI_OPTS package'
     - cd ../..
   only:
     - main
