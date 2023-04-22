@@ -51,8 +51,7 @@ backend-install:
     - cd tictactoe
     - cd backend
   script:
-    - 'mvn $MAVEN_CLI_OPTS clean'
-    - 'mvn $MAVEN_CLI_OPTS install'
+    - 'mvn $MAVEN_CLI_OPTS -f backend.pom.xml clean install'
     - cd ../..
   only:
     - main
