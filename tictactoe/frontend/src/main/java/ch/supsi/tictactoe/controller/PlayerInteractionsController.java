@@ -1,6 +1,7 @@
 package ch.supsi.tictactoe.controller;
 
 import ch.supsi.tictactoe.About;
+import ch.supsi.tictactoe.listener.GameLogicListener;
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.model.Game;
 import javafx.event.ActionEvent;
@@ -11,7 +12,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
-public class PlayerInteractionsController implements GameListener {
+public class PlayerInteractionsController implements GameListener, GameLogicListener {
 
     private Game game;
     private Scene scene;
@@ -96,10 +97,7 @@ public class PlayerInteractionsController implements GameListener {
         String id = button.getId();
         int row = Integer.parseInt(id.substring(1, 2));
         int col = Integer.parseInt(id.substring(2, 3));
-        if(game.getGameLogic().playerAction(row, col)) {
-        }else{
-            System.out.println("Error: cell already occupied");
-        }
+        game.getGameLogic().playerAction(row, col);
         update();
     }
 
@@ -111,5 +109,28 @@ public class PlayerInteractionsController implements GameListener {
                 b.setText(String.valueOf(gameMatrix[i][j]));
             }
         }
+    }
+
+    @Override
+    public void userWin() {
+        System.out.println("User ha vinto");
+        game.gamesOver();
+    }
+
+    @Override
+    public void aiWin() {
+        System.out.println("AI ha vinto");
+        game.gamesOver();
+    }
+
+    @Override
+    public void wrongCell() {
+        System.out.println("Cella già occupata");
+    }
+
+    @Override
+    public void allCellOccupied() {
+        System.out.println("Pareggio");
+        game.gamesOver();
     }
 }
