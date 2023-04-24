@@ -10,6 +10,8 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class AppFx extends Application {
 
@@ -22,7 +24,9 @@ public class AppFx extends Application {
 
         Game game = new Game();
 
-        FXMLLoader loader = new FXMLLoader(fxml);
+        Locale locale = new Locale("it", "CH");
+        ResourceBundle bundle = ResourceBundle.getBundle("resources", locale);
+        FXMLLoader loader = new FXMLLoader(fxml, bundle);
 
         Parent root = loader.load();
         ((PlayerInteractionsController)loader.getController()).setGame(game);

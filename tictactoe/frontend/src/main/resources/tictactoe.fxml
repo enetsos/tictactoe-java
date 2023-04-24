@@ -10,23 +10,23 @@
 
     <!-- MENU -->
     <MenuBar prefHeight="29.0" prefWidth="600.0">
-        <Menu mnemonicParsing="false" text="File">
-            <MenuItem fx:id="miNew" mnemonicParsing="false" onAction="#newGame" text="New ..."/>
-            <MenuItem fx:id="miOpen" mnemonicParsing="false" onAction="#openGame" text="Open ..."/>
+        <Menu mnemonicParsing="false" text="%file">
+            <MenuItem fx:id="miNew" mnemonicParsing="false" onAction="#newGame" text="%new"/>
+            <MenuItem fx:id="miOpen" mnemonicParsing="false" onAction="#openGame" text="%open"/>
             <SeparatorMenuItem mnemonicParsing="false"/>
-            <MenuItem fx:id="miSave" mnemonicParsing="false" onAction="#saveGame" text="Save"/>
-            <MenuItem fx:id="miSaveAs" mnemonicParsing="false" onAction="#saveGameAs" text="Save As ..."/>
+            <MenuItem fx:id="miSave" mnemonicParsing="false" onAction="#saveGame" text="%save"/>
+            <MenuItem fx:id="miSaveAs" mnemonicParsing="false" onAction="#saveGameAs" text="%saveAs"/>
             <SeparatorMenuItem mnemonicParsing="false"/>
-            <MenuItem fx:id="miQuit" mnemonicParsing="false" onAction="#quit" text="Quit"/>
+            <MenuItem fx:id="miQuit" mnemonicParsing="false" onAction="#quit" text="%quit"/>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-            <Menu mnemonicParsing="false" text="Preferences">
-                <MenuItem fx:id="miSymbols" mnemonicParsing="false" onAction="#editSymbols" text="Symbols ..."/>
-                <MenuItem fx:id="miLanguage" mnemonicParsing="false" onAction="#editLanguage" text="Language ..."/>
+        <Menu mnemonicParsing="false" text="%edit">
+            <Menu mnemonicParsing="false" text="%preferences">
+                <MenuItem fx:id="miSymbols" mnemonicParsing="false" onAction="#editSymbols" text="%symbols"/>
+                <MenuItem fx:id="miLanguage" mnemonicParsing="false" onAction="#editLanguage" text="%language"/>
             </Menu>
         </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="miAbout" mnemonicParsing="false" onAction="#showAbout" text="About"/>
+        <Menu mnemonicParsing="false" text="%help">
+            <MenuItem fx:id="miAbout" mnemonicParsing="false" onAction="#showAbout" text="%about"/>
         </Menu>
     </MenuBar>
     <!-- END MENU -->
