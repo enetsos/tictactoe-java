@@ -27,8 +27,8 @@ public class AppFx extends Application {
         Parent root = loader.load();
         ((PlayerInteractionsController)loader.getController()).setGame(game);
 
-        game.addListener((PlayerInteractionsController)loader.getController());
-
+        game.addListener(loader.getController());
+        game.addGameLogicListener(loader.getController());
 
         Scene scene = new Scene(root, 600, 629);
         stage.setResizable(false);
@@ -44,7 +44,6 @@ public class AppFx extends Application {
         alert.setHeaderText("Welcome to Tic Tac Toe!");
         alert.setContentText("Click on the board to place your symbol.");
         alert.showAndWait();
-
 
 
     }
