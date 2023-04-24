@@ -49,6 +49,7 @@ public class GameLogic{
                 for (GameLogicListener l: listeners) {
                     l.userWin();
                 }
+                return;
             }
             if(((Ai)players[1]).play()){
                 if(checkWin(players[1].getSymbol())){
