@@ -1,7 +1,14 @@
 package ch.supsi.tictactoe.model;
 
+import ch.supsi.tictactoe.listener.GameLogicListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ai extends Player{
     public static final char DEFAULT_SYMBOL = 'O';
+
+    private final List<GameLogicListener> listeners = new ArrayList<>();
 
     private int nextRow = -1;
     private int nextCol = -1;
@@ -12,6 +19,10 @@ public class Ai extends Player{
 
     public Ai(char symbol, char[][] gameMatrix) {
         super(symbol, gameMatrix);
+    }
+
+    public void addListener(GameLogicListener listener){
+        listeners.add(listener);
     }
 
     public boolean play (){
@@ -69,6 +80,7 @@ public class Ai extends Player{
                     countCol++;
                 }
             }
+
 
             if(countRow == 2){
                 for(int j = 0; j < 3; j++){

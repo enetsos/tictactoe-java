@@ -1,5 +1,9 @@
 package ch.supsi.tictactoe.listener;
 
-public interface AiListener {
-    public void gamesOver(boolean playerWin);
+public interface GameLogicListener {
+    public void userWin();
+    public void aiWin();
+    public void wrongCell();
+    public void allCellOccupied();
+
 }
