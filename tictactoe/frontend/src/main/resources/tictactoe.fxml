@@ -30,7 +30,13 @@
         </Menu>
     </MenuBar>
     <!-- END MENU -->
-
+    <!-- STATUS BAR -->
+    <Label fx:id="statusBar" alignment="CENTER" layoutX="14.0" layoutY="620.0" prefHeight="29.0" prefWidth="572.0"
+           text="Status Bar" textAlignment="CENTER">
+        <font>
+            <Font name="Comic Sans MS" size="18.0"/>
+        </font>
+    </Label>
     <!-- GRID -->
     <Button fx:id="b00" alignment="CENTER" focusTraversable="false" layoutX="14.0" layoutY="43.0"
             mnemonicParsing="false" onAction="#playerAction" prefHeight="182.0" prefWidth="182.0" textAlignment="CENTER">

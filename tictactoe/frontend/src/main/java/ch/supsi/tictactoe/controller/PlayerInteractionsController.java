@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -28,7 +29,6 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     public void setScene(Scene scene){
         this.scene = scene;
     }
-
 
 
     @FXML
@@ -103,11 +103,18 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         }
         Button button = (Button) e.getSource();
 
+        updateStatusBar("Your turn");
         String id = button.getId();
         int row = Integer.parseInt(id.substring(1, 2));
         int col = Integer.parseInt(id.substring(2, 3));
         game.getGameLogic().playerAction(row, col);
         update();
+    }
+
+    //update status bar
+    public void updateStatusBar(String text){
+        Label label = (Label) scene.lookup("#statusBar");
+        label.setText(text);
     }
 
     public void update(){
@@ -124,22 +131,26 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     public void userWin() {
         System.out.println("User ha vinto");
         game.gamesOver();
+        updateStatusBar("You win! :)");
     }
 
     @Override
     public void aiWin() {
         System.out.println("AI ha vinto");
         game.gamesOver();
+        updateStatusBar("You lose! :(");
     }
 
     @Override
     public void wrongCell() {
         System.out.println("Cella già occupata");
+        updateStatusBar("Wrong cell! Retry!");
     }
 
     @Override
     public void allCellOccupied() {
         System.out.println("Pareggio");
         game.gamesOver();
+        updateStatusBar("Draw! :|");
     }
 }

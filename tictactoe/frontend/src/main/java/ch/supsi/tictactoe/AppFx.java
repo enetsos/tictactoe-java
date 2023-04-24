@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -30,10 +31,13 @@ public class AppFx extends Application {
         game.addListener(loader.getController());
         game.addGameLogicListener(loader.getController());
 
-        Scene scene = new Scene(root, 600, 629);
+        Scene scene = new Scene(root, 600, 650);
         stage.setResizable(false);
 
         ((PlayerInteractionsController)loader.getController()).setScene(scene);
+
+        Label label = (Label) scene.lookup("#statusBar");
+        label.setText("Welcome to Tic Tac Toe! I'ts your turn.");
 
         stage.setScene(scene);
         stage.show();
