@@ -1,6 +1,7 @@
 package ch.supsi.tictactoe.controller;
 
 import ch.supsi.tictactoe.About;
+import ch.supsi.tictactoe.AppFx;
 import ch.supsi.tictactoe.listener.GameLogicListener;
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.model.Game;
@@ -10,9 +11,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.Locale;
 
 public class PlayerInteractionsController implements GameListener, GameLogicListener {
 
@@ -89,6 +93,9 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
 
     @FXML
     public void editLanguage(ActionEvent e) {
+        MenuItem mi = (MenuItem) e.getSource();
+        System.out.println(mi.getId());
+        //AppFx.switchLanguage(new Locale("it", "CH"));
     }
 
     @FXML

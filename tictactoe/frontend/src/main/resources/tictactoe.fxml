@@ -22,7 +22,10 @@
         <Menu mnemonicParsing="false" text="%edit">
             <Menu mnemonicParsing="false" text="%preferences">
                 <MenuItem fx:id="miSymbols" mnemonicParsing="false" onAction="#editSymbols" text="%symbols"/>
-                <MenuItem fx:id="miLanguage" mnemonicParsing="false" onAction="#editLanguage" text="%language"/>
+                <Menu mnemonicParsing="false" text="%language">
+                    <MenuItem fx:id="en" mnemonicParsing="false" onAction="#editLanguage" text="%english" />
+                    <MenuItem fx:id="it" mnemonicParsing="false" onAction="#editLanguage" text="%italian" />
+                </Menu>
             </Menu>
         </Menu>
         <Menu mnemonicParsing="false" text="%help">

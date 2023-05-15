@@ -32,7 +32,7 @@ public class GameLogic{
         }
     }
 
-    public void gamesOver(){
+    public void setGamesOver(){
         this.gamesOver = true;
     }
 
