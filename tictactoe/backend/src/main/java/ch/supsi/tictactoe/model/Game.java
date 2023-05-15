@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Game {
     private final GameLogic gameLogic;
+    private final SettingsSaver SettingsSaver = new SettingsSaver();
+    private final GameSaver GameSaver = new GameSaver();
 
     private final List<GameListener> listeners = new ArrayList<>();
 
@@ -45,6 +47,14 @@ public class Game {
                 listener.update();
             }
         }
+    }
+
+    public void saveSettings(File file){
+        SettingsSaver.save(file, gameLogic);
+    }
+
+    public void loadSettings(File file){
+        SettingsSaver.load(file, gameLogic);
     }
 
 }

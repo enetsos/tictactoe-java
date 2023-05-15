@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class GameSaver {
+public class GameSaver extends Saver{
 
-    public static boolean save(File file, GameLogic logic){
+    public boolean save(File file, GameLogic logic){
 
         StringBuilder builder = new StringBuilder();
         char[][] matrix = logic.getGameMatrix();
@@ -34,7 +34,7 @@ public class GameSaver {
         return true;
     }
 
-    public static boolean load(File file, GameLogic logic){
+    public boolean load(File file, GameLogic logic){
         try {
             Scanner input = new Scanner(file);
             char[][] matrix = new char[3][3];

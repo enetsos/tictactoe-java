@@ -85,10 +85,12 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
 
     @FXML
     public void editSymbols(ActionEvent e) {
+        saveSettings();
     }
 
     @FXML
     public void editLanguage(ActionEvent e) {
+        saveSettings();
     }
 
     @FXML
@@ -152,5 +154,31 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         System.out.println("Pareggio");
         game.gamesOver();
         updateStatusBar("Draw! :|");
+    }
+
+    public void saveSettings(){
+        String userHome = System.getProperty("user.home");
+        String os = System.getProperty("os.name").toLowerCase();
+        String appSettingsDir;
+
+        if (os.contains("win")) {
+            appSettingsDir = userHome + File.separator + "tictactoe";
+        } else if (os.contains("mac")) {
+            appSettingsDir = userHome + File.separator + "Library" + File.separator + "Application Support" + File.separator + "tictactoe";
+        } else {
+            appSettingsDir = userHome + File.separator + ".tictactoe";
+        }
+
+        String appSettingsPath = appSettingsDir + File.separator + "settings.txt";
+
+        File dir = new File(appSettingsDir);
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
+
+        File f = new File(appSettingsPath);
+
+        game.saveSettings(f);
+
     }
 }
