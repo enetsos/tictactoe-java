@@ -1,6 +1,7 @@
 package ch.supsi.tictactoe.controller;
 
 import ch.supsi.tictactoe.About;
+import ch.supsi.tictactoe.AppFx;
 import ch.supsi.tictactoe.listener.GameLogicListener;
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.model.Game;
@@ -10,10 +11,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.Locale;
 
 public class PlayerInteractionsController implements GameListener, GameLogicListener {
 
@@ -29,6 +32,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     public void setScene(Scene scene){
         this.scene = scene;
     }
+
 
 
     @FXML
@@ -89,6 +93,9 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
 
     @FXML
     public void editLanguage(ActionEvent e) {
+        MenuItem mi = (MenuItem) e.getSource();
+        System.out.println(mi.getId());
+        //AppFx.switchLanguage(new Locale("it", "CH"));
     }
 
     @FXML
@@ -103,18 +110,11 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         }
         Button button = (Button) e.getSource();
 
-        updateStatusBar("Your turn");
         String id = button.getId();
         int row = Integer.parseInt(id.substring(1, 2));
         int col = Integer.parseInt(id.substring(2, 3));
         game.getGameLogic().playerAction(row, col);
         update();
-    }
-
-    //update status bar
-    public void updateStatusBar(String text){
-        Label label = (Label) scene.lookup("#statusBar");
-        label.setText(text);
     }
 
     public void update(){
@@ -131,26 +131,22 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     public void userWin() {
         System.out.println("User ha vinto");
         game.gamesOver();
-        updateStatusBar("You win! :)");
     }
 
     @Override
     public void aiWin() {
         System.out.println("AI ha vinto");
         game.gamesOver();
-        updateStatusBar("You lose! :(");
     }
 
     @Override
     public void wrongCell() {
         System.out.println("Cella già occupata");
-        updateStatusBar("Wrong cell! Retry!");
     }
 
     @Override
     public void allCellOccupied() {
         System.out.println("Pareggio");
         game.gamesOver();
-        updateStatusBar("Draw! :|");
     }
 }

@@ -20,7 +20,7 @@ public class Game {
     }
 
     public void gamesOver(){
-        gameLogic.gamesOver();
+        gameLogic.setGamesOver();
     }
 
     public GameLogic getGameLogic() {
