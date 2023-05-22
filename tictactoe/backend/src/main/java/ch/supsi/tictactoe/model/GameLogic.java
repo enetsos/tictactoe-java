@@ -103,10 +103,12 @@ public class GameLogic{
     }
 
     public boolean userWin(){
+        //return checkWin(((User)players[0]).DEFAULT_SYMBOL);
         return checkWin(players[0].getSymbol());
     }
 
     public boolean AIWin(){
+        //return checkWin(((Ai)players[1]).DEFAULT_SYMBOL);
         return checkWin(players[1].getSymbol());
     }
 
@@ -146,5 +148,46 @@ public class GameLogic{
             return true;
 
         return false;
+    }
+
+    public void setUserSymbol(char symbol) {
+        players[0].setSymbol(symbol);
+    }
+
+    public void setAiSymbol(char symbol) {
+        players[1].setSymbol(symbol);
+    }
+
+    public void setUserColor(String color) {
+        players[0].setColor(color);
+    }
+
+    public void setAiColor(String color) {
+        players[1].setColor(color);
+    }
+
+    public String getColor(char gameMatrix) {
+        if(gameMatrix == players[0].getSymbol()){
+            return players[0].getColor();
+        }else if(gameMatrix == players[1].getSymbol()){
+            return players[1].getColor();
+        }
+        return null;
+    }
+
+    public String getUserColor() {
+        return players[0].getColor();
+    }
+
+    public String getAiColor() {
+        return players[1].getColor();
+    }
+
+    public char getUserSymbol() {
+        return players[0].getSymbol();
+    }
+
+    public char getAiSymbol() {
+        return players[1].getSymbol();
     }
 }

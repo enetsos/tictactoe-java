@@ -42,16 +42,18 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         ButtonType cancel = new ButtonType("Cancel");
         alert.getButtonTypes().setAll(saveAndNewGame, newGame, cancel);
         alert.showAndWait();
-        //add save button
 
         if(alert.getResult().getText().equals("Save")){
-            saveGameAs(e);
+            saveGame(e);
             game.newGame();
+
+            update();
             updateStatusBar("New Game started. It's your turn.");
         }
 
         if(alert.getResult().getText().equals("Don't Save")){
             game.newGame();
+            update();
             updateStatusBar("New Game started. It's your turn.");
         }
 
@@ -212,6 +214,8 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
                 }else if(gameMatrix[i][j] == 'O'){
                     b.setText(String.valueOf(game.getAiSymbol()));
                     b.setTextFill(Color.web(game.getAiColor()));
+                }else{
+                    b.setText("");
                 }
             }
         }

@@ -19,7 +19,7 @@ public abstract class Player {
     }
 
     public Player(char symbol, char[][] gameMatrix) {
-        this(symbol, "yellow", gameMatrix);
+        this(symbol, "black", gameMatrix);
     }
 
     public Player(char[][] gameMatrix) {
@@ -29,9 +29,7 @@ public abstract class Player {
     public char getSymbol() {
         return symbol;
     }
-    public void setSymbol(char s){
-        this.symbol = s;
-    }
+
 
     public void setSymbol(char symbol) {
         this.symbol = symbol;

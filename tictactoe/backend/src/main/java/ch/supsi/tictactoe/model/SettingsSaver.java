@@ -45,12 +45,19 @@ public class SettingsSaver extends Saver{
     public boolean load(File file, GameLogic logic) {
         try {
             Scanner input = new Scanner(file);
-            String lang = input.nextLine().split(":")[1];
-            String user = input.nextLine().split(":")[1];
-            String ai = input.nextLine().split(":")[1];
+            String lang = null;
+            String user = null;
+            String ai = null;
+            try {
+                lang = input.nextLine().split(":")[1];
+                user = input.nextLine().split(":")[1];
+                ai = input.nextLine().split(":")[1];
+            } catch (Exception e) {
+                lang = "en-EN";
+                user = "X";
+                ai = "O";
+            }
 
-            if(lang == null)
-                logic.setLanguage("en-EN");
             logic.setLanguage(lang);
             logic.setUserChar(user.charAt(0));
             logic.setAIChar(ai.charAt(0));
