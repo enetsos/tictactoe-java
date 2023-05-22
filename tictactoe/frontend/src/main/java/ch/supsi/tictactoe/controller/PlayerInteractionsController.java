@@ -139,6 +139,14 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         int col = Integer.parseInt(id.substring(2, 3));
         game.getGameLogic().playerAction(row, col);
         update();
+
+        if(game.getGameLogic().userWin())
+            userWin();
+        else if(game.getGameLogic().AIWin())
+            aiWin();
+        else if(game.getGameLogic().isDraw())
+            allCellOccupied();
+
     }
 
     //update status bar

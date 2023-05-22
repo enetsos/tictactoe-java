@@ -81,31 +81,33 @@ public class GameLogic{
             return;
         }
         if(((User)players[0]).play(x, y)) {
-            if(checkWin(players[0].getSymbol())){
-                for (GameLogicListener l: listeners) {
-                    l.userWin();
-                }
+            if (userWin())
                 return;
-            }
-            if(((Ai)players[1]).play()){
-                if(checkWin(players[1].getSymbol())){
-                    for (GameLogicListener l: listeners) {
-                        l.aiWin();
-                    }
-                }
-                //Entrambi hanno potuto giocare ma nessuno ha ancora vinto
-            }else{
-                for (GameLogicListener l: listeners) {
-                    l.allCellOccupied();
-                }
-            }
-        }else{
-            System.out.println("Cella sbagliato");
-            for (GameLogicListener l: listeners) {
+            ((Ai) players[1]).play();
+        }else {
+            for (GameLogicListener l : listeners) {
                 l.wrongCell();
             }
-
         }
+    }
+
+    public boolean isDraw(){
+        for(int i = 0; i < gameMatrix.length; i++){
+            for(int j = 0; j < gameMatrix[i].length; j++){
+                if(gameMatrix[i][j] == '\u0000'){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean userWin(){
+        return checkWin(players[0].getSymbol());
+    }
+
+    public boolean AIWin(){
+        return checkWin(players[1].getSymbol());
     }
 
     private boolean checkWin(char symbol){
