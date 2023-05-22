@@ -54,8 +54,8 @@ public class Game {
         }
     }
 
-    public void saveSettings(File file){
-        SettingsSaver.save(file, gameLogic);
+    public void saveSettings(){
+        SettingsSaver.save(gameLogic);
     }
 
 }
