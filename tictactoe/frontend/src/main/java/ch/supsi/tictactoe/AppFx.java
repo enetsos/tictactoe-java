@@ -2,8 +2,7 @@ package ch.supsi.tictactoe;
 
 import ch.supsi.tictactoe.controller.LocalizationController;
 import ch.supsi.tictactoe.controller.PlayerInteractionsController;
-import ch.supsi.tictactoe.model.Game;
-import ch.supsi.tictactoe.model.LocalizationModel;
+import ch.supsi.tictactoe.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -19,10 +20,15 @@ public class AppFx extends Application {
 
     private LocalizationController localizationController;
     private PlayerInteractionsController playerInteractionsController;
+    private GameLogic logic = new GameLogic();
 
     public AppFx(){
+
+        SettingsSaver s = new SettingsSaver();
+        s.load(logic);
+
         LocalizationModel localizationModel = LocalizationModel.getInstance();
-        localizationModel.init("i18n.resources", Locale.forLanguageTag("en-EN"));
+        localizationModel.init("i18n.resources", Locale.forLanguageTag(logic.getLanguage()));
         localizationController = new LocalizationController(localizationModel);
     }
     @Override
@@ -33,7 +39,7 @@ public class AppFx extends Application {
             return;
         }
 
-        Game game = new Game();
+        Game game = new Game(logic);
         FXMLLoader loader = new FXMLLoader(fxml, localizationController.getResourceBundle());
 
         Parent root = loader.load();

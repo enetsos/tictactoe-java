@@ -7,18 +7,19 @@ import java.util.List;
 
 public class GameLogic{
     private Player[] players;
-
     private boolean gamesOver = false;
 
     private char[][] gameMatrix;
 
+    private String language;
+
+
     private List<GameLogicListener> listeners = new ArrayList<>();
 
-    public GameLogic(GameSettings gameSettings) {
+
+    public GameLogic(){
         gameMatrix = new char[3][3];
         this.players = new Player[2];
-        this.players[0] = new User(gameSettings.getUserChar(), gameMatrix);
-        this.players[1] = new Ai(gameSettings.getAiChar(), gameMatrix);
     }
 
     public void addListener(GameLogicListener listener){
@@ -32,6 +33,34 @@ public class GameLogic{
         }
     }
 
+    public void setLanguage(String language){
+        this.language = language;
+    }
+    public void setAIChar(char aiChar){
+        if(players[1] == null){
+            players[1] = new Ai(aiChar, gameMatrix);
+        }else{
+            players[1].setSymbol(aiChar);
+        }
+    }
+    public void setUserChar(char userChar){
+        if(players[0] == null){
+            players[0] = new User(userChar, gameMatrix);
+        }else {
+            players[0].setSymbol(userChar);
+        }
+    }
+
+    public char getUserChar(){
+        return players[0].getSymbol();
+    }
+    public char getAiChar(){
+        return players[1].getSymbol();
+    }
+
+    public String getLanguage(){
+        return language;
+    }
     public void setGamesOver(){
         this.gamesOver = true;
     }

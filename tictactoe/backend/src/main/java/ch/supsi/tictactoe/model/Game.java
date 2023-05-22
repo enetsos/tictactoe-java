@@ -15,10 +15,8 @@ public class Game {
     private final List<GameListener> listeners = new ArrayList<>();
 
 
-
-    public Game() {
-        GameSettings gameSettings = new GameSettings();
-        gameLogic = new GameLogic(gameSettings);
+    public Game(GameLogic logic){
+        this.gameLogic = logic;
     }
 
     public void gamesOver(){
@@ -49,12 +47,8 @@ public class Game {
         }
     }
 
-    public void saveSettings(File file){
-        SettingsSaver.save(file, gameLogic);
-    }
-
-    public void loadSettings(File file){
-        SettingsSaver.load(file, gameLogic);
+    public void saveSettings(){
+        SettingsSaver.save(gameLogic);
     }
 
 }
