@@ -27,12 +27,12 @@ variables:
     --fail-at-end
     --show-version
     --no-transfer-progress
+    --no-snapshot-updates
   #   -DinstallAtEnd=true
   #   -DdeployAtEnd=true
 
 stages:
-  - backend_install
-  - frontend_package
+  - install_package
   - git_inspector
 
 image: tommasoagnola/ingsw1:1.0.2
@@ -45,37 +45,24 @@ cache:
   paths:
     - .m2/repository
 
-backend-install:
-  stage: backend_install
+install-package:
+  stage: install_package
   before_script:
     - cd tictactoe
+  script:
     - cd backend
-  script:
-    - 'mvn $MAVEN_CLI_OPTS -f backend.pom.xml clean install'
+    - 'mvn $MAVEN_CLI_OPTS -f backend.pom.xml clean'
+    - 'mvn $MAVEN_CLI_OPTS -f backend.pom.xml install'
+    - cd ../frontend
+    - 'mvn $MAVEN_CLI_OPTS -f frontend.pom.xml clean'
+    - 'mvn $MAVEN_CLI_OPTS -f frontend.pom.xml package'
     - cd ../..
   only:
     - main
     - dev
   artifacts:
     paths:
-      - tictactoe/backend/target/*.jar
-
-frontend-package:
-  stage: frontend_package
-  before_script:
-    - cd tictactoe
-    - cd frontend
-  script:
-    - 'mvn $MAVEN_CLI_OPTS -f frontend.pom.xml clean package'
-#    - 'mvn install:install-file -Dfile=../backend/target/backend-1.0.0.jar -DgroupId=ch.supsi.localchat -DartifactId=backend -Dversion=1.0.0 -Dpackaging=jar'
-#   - 'mvn $MAVEN_CLI_OPTS package'
-    - cd ../..
-  only:
-    - main
-    - dev
-  artifacts:
-    paths:
-      - tictactoe/frontend/target/*.jar
+      - tictactoe
 
 git-inspector:
   stage: git_inspector
