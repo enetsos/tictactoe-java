@@ -36,25 +36,25 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     public void newGame(ActionEvent e) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("New Game");
-        alert.setHeaderText("Are you sure you want to start a new game?");
-        ButtonType saveAndNewGame = new ButtonType("Save");
-        ButtonType newGame = new ButtonType("Don't Save");
-        ButtonType cancel = new ButtonType("Cancel");
+        alert.setHeaderText(LocalizationHelper.getString("askNewGame"));
+        ButtonType saveAndNewGame = new ButtonType(LocalizationHelper.getString("save"));
+        ButtonType newGame = new ButtonType(LocalizationHelper.getString("dontSave"));
+        ButtonType cancel = new ButtonType(LocalizationHelper.getString("cancel"));
         alert.getButtonTypes().setAll(saveAndNewGame, newGame, cancel);
         alert.showAndWait();
 
-        if(alert.getResult().getText().equals("Save")){
+        if(alert.getResult().getText().equals(LocalizationHelper.getString("save"))){
             saveGame(e);
             game.newGame();
 
             update();
-            updateStatusBar("New Game started. It's your turn.");
+            updateStatusBar(LocalizationHelper.getString("info.newGame"));
         }
 
-        if(alert.getResult().getText().equals("Don't Save")){
+        if(alert.getResult().getText().equals(LocalizationHelper.getString("dontSave"))){
             game.newGame();
             update();
-            updateStatusBar("New Game started. It's your turn.");
+            updateStatusBar(LocalizationHelper.getString("info.newGame"));
         }
 
     }
@@ -183,7 +183,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         }
         Button button = (Button) e.getSource();
 
-        updateStatusBar("Your turn");
+        updateStatusBar(LocalizationHelper.getString("info.yourTurn"));
         String id = button.getId();
         int row = Integer.parseInt(id.substring(1, 2));
         int col = Integer.parseInt(id.substring(2, 3));
@@ -242,31 +242,27 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
 
     @Override
     public void userWin() {
-        System.out.println("User ha vinto");
         game.gamesOver();
-        updateStatusBar("You win! :)");
+        updateStatusBar(LocalizationHelper.getString("info.youWin"));
         gameEnded();
     }
 
     @Override
     public void aiWin() {
-        System.out.println("AI ha vinto");
         game.gamesOver();
-        updateStatusBar("You lose! :(");
+        updateStatusBar(LocalizationHelper.getString("info.aiWin"));
         gameEnded();
     }
 
     @Override
     public void wrongCell() {
-        System.out.println("Cella già occupata");
-        updateStatusBar("Wrong cell! Retry!");
+        updateStatusBar(LocalizationHelper.getString("info.wrongCell"));
     }
 
     @Override
     public void allCellOccupied() {
-        System.out.println("Pareggio");
         game.gamesOver();
-        updateStatusBar("Draw! :|");
+        updateStatusBar(LocalizationHelper.getString("info.draw"));
         gameEnded();
     }
 

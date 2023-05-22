@@ -57,7 +57,7 @@ public class AppFx extends Application {
         });
 
         Label label = (Label) scene.lookup("#statusBar");
-        label.setText("Welcome to Tic Tac Toe! I'ts your turn.");
+        label.setText(LocalizationHelper.getString("info.newGame"));
 
         stage.setScene(scene);
         stage.show();
