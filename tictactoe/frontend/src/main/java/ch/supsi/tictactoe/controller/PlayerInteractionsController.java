@@ -112,6 +112,12 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
 
     @FXML
     public void editLanguage(ActionEvent e) {
+        String id = e.getSource().toString().toLowerCase().substring(12, 14);
+        if(id.equals("en")){
+            game.getGameLogic().setLanguage("en-EN");
+        }else if(id.equals("it")){
+            game.getGameLogic().setLanguage("it-IT");
+        }
         saveSettings();
     }
 
@@ -200,28 +206,6 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     }
 
     public void saveSettings(){
-        String userHome = System.getProperty("user.home");
-        String os = System.getProperty("os.name").toLowerCase();
-        String appSettingsDir;
-
-        if (os.contains("win")) {
-            appSettingsDir = userHome + File.separator + "tictactoe";
-        } else if (os.contains("mac")) {
-            appSettingsDir = userHome + File.separator + "Library" + File.separator + "Application Support" + File.separator + "tictactoe";
-        } else {
-            appSettingsDir = userHome + File.separator + ".tictactoe";
-        }
-
-        String appSettingsPath = appSettingsDir + File.separator + "settings.txt";
-
-        File dir = new File(appSettingsDir);
-        if(!dir.exists()){
-            dir.mkdirs();
-        }
-
-        File f = new File(appSettingsPath);
-
-        game.saveSettings(f);
-
+        game.saveSettings();
     }
 }

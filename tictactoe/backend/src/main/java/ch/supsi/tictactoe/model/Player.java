@@ -20,6 +20,9 @@ public abstract class Player {
     public char getSymbol() {
         return symbol;
     }
+    public void setSymbol(char s){
+        this.symbol = s;
+    }
 
     public void setGameMatrix(char[][] gameMatrix){
         this.gameMatrix = gameMatrix;
