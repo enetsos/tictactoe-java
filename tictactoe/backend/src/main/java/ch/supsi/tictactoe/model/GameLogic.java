@@ -103,13 +103,11 @@ public class GameLogic{
     }
 
     public boolean userWin(){
-        //return checkWin(((User)players[0]).DEFAULT_SYMBOL);
-        return checkWin(players[0].getSymbol());
+        return checkWin(User.DEFAULT_SYMBOL);
     }
 
     public boolean AIWin(){
-        //return checkWin(((Ai)players[1]).DEFAULT_SYMBOL);
-        return checkWin(players[1].getSymbol());
+        return checkWin(Ai.DEFAULT_SYMBOL);
     }
 
     private boolean checkWin(char symbol){
