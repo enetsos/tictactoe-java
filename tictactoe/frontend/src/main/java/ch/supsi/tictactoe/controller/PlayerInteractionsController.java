@@ -4,6 +4,7 @@ import ch.supsi.tictactoe.About;
 import ch.supsi.tictactoe.listener.GameLogicListener;
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.model.Game;
+import ch.supsi.tictactoe.model.LocalizationHelper;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -98,8 +99,8 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     @FXML
     public void quit(ActionEvent e) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Quit");
-        alert.setHeaderText("Are you sure you want to quit?");
+        alert.setTitle(LocalizationHelper.getString("quit"));
+        alert.setHeaderText(LocalizationHelper.getString("askQuit"));
         alert.showAndWait();
         if(alert.getResult().getText().equals("OK")){
             Platform.exit();
