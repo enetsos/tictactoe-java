@@ -13,6 +13,8 @@ public class GameLogic{
 
     private String language;
 
+    private String currentLanguage;
+
 
     private List<GameLogicListener> listeners = new ArrayList<>();
 
@@ -41,6 +43,8 @@ public class GameLogic{
     }
 
     public void setLanguage(String language){
+        if(this.language == null)
+            this.currentLanguage = language;
         this.language = language;
     }
 
@@ -50,6 +54,7 @@ public class GameLogic{
         }else{
             players[1].setSymbol(aiChar);
         }
+
     }
     public void setUserChar(char userChar){
         if(players[0] == null){
@@ -57,6 +62,7 @@ public class GameLogic{
         }else {
             players[0].setSymbol(userChar);
         }
+
     }
 
     public char getUserChar(){
@@ -69,6 +75,8 @@ public class GameLogic{
     public String getLanguage(){
         return language;
     }
+
+    public String getCurrentLanguage() { return currentLanguage;}
     public void setGamesOver(){
         this.gamesOver = true;
     }

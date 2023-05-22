@@ -3,8 +3,7 @@ package ch.supsi.tictactoe.controller;
 import ch.supsi.tictactoe.About;
 import ch.supsi.tictactoe.listener.GameLogicListener;
 import ch.supsi.tictactoe.listener.GameListener;
-import ch.supsi.tictactoe.model.Game;
-import ch.supsi.tictactoe.model.LocalizationHelper;
+import ch.supsi.tictactoe.model.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +13,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
+import java.awt.desktop.PreferencesEvent;
+import java.awt.desktop.PreferencesHandler;
 import java.io.File;
+import java.util.Locale;
 
 public class PlayerInteractionsController implements GameListener, GameLogicListener {
 
@@ -109,51 +111,9 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
 
     @FXML
     public void editSymbols(ActionEvent e) {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Edit Symbols");
-        dialog.setHeaderText("Edit Symbols");
 
-        // Create symbol and color pickers
-        ChoiceBox<String> xSymbolPicker = new ChoiceBox<>();
-        xSymbolPicker.getItems().addAll("X", "A", "B", "C"); // Add your desired symbols
-        xSymbolPicker.setValue("X");
-
-
-        ChoiceBox<String> oSymbolPicker = new ChoiceBox<>();
-        oSymbolPicker.getItems().addAll("O", "D", "E", "F"); // Add your desired symbols
-        oSymbolPicker.setValue("O");
-
-
-        ColorPicker xColorPicker = new ColorPicker(Color.BLACK);
-        ColorPicker oColorPicker = new ColorPicker(Color.BLACK);
-
-        // Create dialog buttons
-        ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, cancelButtonType);
-
-        // Set the dialog content
-        GridPane dialogContent = new GridPane();
-        dialogContent.setHgap(10);
-        dialogContent.setVgap(10);
-        dialogContent.addRow(0, new Label("Symbol for X:"), xSymbolPicker);
-        dialogContent.addRow(1, new Label("Color for X:"), xColorPicker);
-        dialogContent.addRow(2, new Label("Symbol for O:"), oSymbolPicker);
-        dialogContent.addRow(3, new Label("Color for O:"), oColorPicker);
-        dialog.getDialogPane().setContent(dialogContent);
-
-        // Convert the selected symbol and color values
-        dialog.setResultConverter(buttonType -> {
-            if (buttonType == saveButtonType) {
-                game.setUserSymbol(xSymbolPicker.getValue().charAt(0));
-                game.setAiSymbol(oSymbolPicker.getValue().charAt(0));
-                game.setUserColor(xColorPicker.getValue().toString());
-                game.setAiColor(oColorPicker.getValue().toString());
-            }
-            return null;
-        });
-
-        dialog.showAndWait();
+        EditSymbolsModel esm = new EditSymbolsModel(game.getGameLogic(), this);
+        esm.show();
 
         saveSettings();
         update();
