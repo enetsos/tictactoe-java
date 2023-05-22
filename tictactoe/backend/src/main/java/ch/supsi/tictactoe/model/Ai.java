@@ -34,9 +34,9 @@ public class Ai extends Player{
         }
 
         if(checkWin()){
-            gameMatrix[nextRow][nextCol] = symbol;
+            gameMatrix[nextRow][nextCol] = DEFAULT_SYMBOL;
         } else if(checkWin('X')){
-            gameMatrix[nextRow][nextCol] = symbol;
+            gameMatrix[nextRow][nextCol] = DEFAULT_SYMBOL;
         }else{
             nextRow = (int) (Math.random() * 3);
             nextCol = (int) (Math.random() * 3);
@@ -44,7 +44,7 @@ public class Ai extends Player{
                 nextRow = (int) (Math.random() * 3);
                 nextCol = (int) (Math.random() * 3);
             }
-            gameMatrix[nextRow][nextCol] = symbol;
+            gameMatrix[nextRow][nextCol] = DEFAULT_SYMBOL;
         }
 
         return true;

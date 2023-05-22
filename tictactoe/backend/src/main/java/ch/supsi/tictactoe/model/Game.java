@@ -38,6 +38,22 @@ public class Game {
         GameSaver.save(file, gameLogic);
     }
 
+    public void setUserSymbol(char symbol){
+        gameLogic.setUserSymbol(symbol);
+    }
+
+    public void setAiSymbol(char symbol){
+        gameLogic.setAiSymbol(symbol);
+    }
+
+    public void setUserColor(String color){
+        gameLogic.setUserColor(color);
+    }
+
+    public void setAiColor(String color){
+        gameLogic.setAiColor(color);
+    }
+
     public void loadGame(File file){
         boolean res = GameSaver.load(file, gameLogic);
         if(res){
@@ -58,4 +74,23 @@ public class Game {
         SettingsSaver.save(gameLogic);
     }
 
+    public String getColor(char gameMatrix) {
+        return gameLogic.getColor(gameMatrix);
+    }
+
+    public String getUserColor() {
+        return gameLogic.getUserColor();
+    }
+
+    public String getAiColor() {
+        return gameLogic.getAiColor();
+    }
+
+    public char getUserSymbol() {
+        return gameLogic.getUserSymbol();
+    }
+
+    public char getAiSymbol() {
+        return gameLogic.getAiSymbol();
+    }
 }

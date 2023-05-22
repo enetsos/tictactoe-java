@@ -16,7 +16,7 @@ public class User extends Player {
         if(gameMatrix[row][column] != 0){
             return false;
         }
-        gameMatrix[row][column] = symbol;
+        gameMatrix[row][column] = DEFAULT_SYMBOL;
         return true;
     }
 }
