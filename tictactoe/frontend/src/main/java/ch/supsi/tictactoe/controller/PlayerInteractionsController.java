@@ -151,11 +151,30 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         }
     }
 
+    public void gameEnded(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Game ended");
+        alert.setHeaderText("Do you want to start a new game?");
+        ButtonType yes = new ButtonType("Yes");
+        ButtonType no = new ButtonType("No");
+        ButtonType quit = new ButtonType("Quit");
+        alert.getButtonTypes().setAll(yes, no, quit);
+        alert.showAndWait();
+        if(alert.getResult().getText().equals("Yes")){
+            game.newGame();
+            updateStatusBar("New Game started. It's your turn.");
+        }
+        if(alert.getResult().getText().equals("Quit")){
+            quit(null);
+        }
+    }
+
     @Override
     public void userWin() {
         System.out.println("User ha vinto");
         game.gamesOver();
         updateStatusBar("You win! :)");
+        gameEnded();
     }
 
     @Override
@@ -163,6 +182,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         System.out.println("AI ha vinto");
         game.gamesOver();
         updateStatusBar("You lose! :(");
+        gameEnded();
     }
 
     @Override
@@ -176,6 +196,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         System.out.println("Pareggio");
         game.gamesOver();
         updateStatusBar("Draw! :|");
+        gameEnded();
     }
 
     public void saveSettings(){
