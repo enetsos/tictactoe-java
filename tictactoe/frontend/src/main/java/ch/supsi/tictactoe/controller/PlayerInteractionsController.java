@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 
@@ -33,6 +34,27 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
 
     @FXML
     public void newGame(ActionEvent e) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("New Game");
+        alert.setHeaderText("Are you sure you want to start a new game?");
+        ButtonType saveAndNewGame = new ButtonType("Save");
+        ButtonType newGame = new ButtonType("Don't Save");
+        ButtonType cancel = new ButtonType("Cancel");
+        alert.getButtonTypes().setAll(saveAndNewGame, newGame, cancel);
+        alert.showAndWait();
+        //add save button
+
+        if(alert.getResult().getText().equals("Save")){
+            saveGameAs(e);
+            game.newGame();
+            updateStatusBar("New Game started. It's your turn.");
+        }
+
+        if(alert.getResult().getText().equals("Don't Save")){
+            game.newGame();
+            updateStatusBar("New Game started. It's your turn.");
+        }
+
     }
 
     @FXML

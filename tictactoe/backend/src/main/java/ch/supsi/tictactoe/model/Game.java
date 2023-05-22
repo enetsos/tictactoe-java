@@ -49,6 +49,13 @@ public class Game {
         }
     }
 
+    public void newGame(){
+        gameLogic.newGame();
+        for(GameListener listener : listeners){
+            listener.update();
+        }
+    }
+
     public void saveSettings(File file){
         SettingsSaver.save(file, gameLogic);
     }

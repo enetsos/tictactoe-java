@@ -21,6 +21,13 @@ public class GameLogic{
         this.players[1] = new Ai(gameSettings.getAiChar(), gameMatrix);
     }
 
+    public void newGame(){
+        gameMatrix = new char[3][3];
+        players[0].setGameMatrix(gameMatrix);
+        players[1].setGameMatrix(gameMatrix);
+        gamesOver = false;
+    }
+
     public void addListener(GameLogicListener listener){
         listeners.add(listener);
     }
