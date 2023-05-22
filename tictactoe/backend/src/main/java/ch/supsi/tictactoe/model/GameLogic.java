@@ -2,6 +2,7 @@ package ch.supsi.tictactoe.model;
 
 import ch.supsi.tictactoe.listener.GameLogicListener;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class GameLogic{
         gamesOver = false;
     }
 
+
     public void addListener(GameLogicListener listener){
         listeners.add(listener);
     }
@@ -37,6 +39,22 @@ public class GameLogic{
         for(int i = 0; i < players.length; i++){
             players[i].setGameMatrix(gameMatrix);
         }
+    }
+
+    public void setUserSymbol(char symbol){
+        players[0].setSymbol(symbol);
+    }
+
+    public void setAiSymbol(char symbol){
+        players[1].setSymbol(symbol);
+    }
+
+    public void setUserColor(String color){
+        players[0].setColor(color);
+    }
+
+    public void setAiColor(String color){
+        players[1].setColor(color);
     }
 
     public void setGamesOver(){
@@ -115,5 +133,30 @@ public class GameLogic{
             return true;
 
         return false;
+    }
+
+    public String getColor(char gameMatrix) {
+        for(int i = 0; i < players.length; i++){
+            if(players[i].getSymbol() == gameMatrix){
+                return players[i].getColor();
+            }
+        }
+        return null;
+    }
+
+    public String getUserColor() {
+        return players[0].getColor();
+    }
+
+    public String getAiColor() {
+        return players[1].getColor();
+    }
+
+    public char getUserSymbol() {
+        return players[0].getSymbol();
+    }
+
+    public char getAiSymbol() {
+        return players[1].getSymbol();
     }
 }

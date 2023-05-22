@@ -8,10 +8,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -107,7 +107,54 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
 
     @FXML
     public void editSymbols(ActionEvent e) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Edit Symbols");
+        dialog.setHeaderText("Edit Symbols");
+
+        // Create symbol and color pickers
+        ChoiceBox<String> xSymbolPicker = new ChoiceBox<>();
+        xSymbolPicker.getItems().addAll("X", "A", "B", "C"); // Add your desired symbols
+        xSymbolPicker.setValue("X");
+
+
+        ChoiceBox<String> oSymbolPicker = new ChoiceBox<>();
+        oSymbolPicker.getItems().addAll("O", "D", "E", "F"); // Add your desired symbols
+        oSymbolPicker.setValue("O");
+
+
+        ColorPicker xColorPicker = new ColorPicker(Color.BLACK);
+        ColorPicker oColorPicker = new ColorPicker(Color.BLACK);
+
+        // Create dialog buttons
+        ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, cancelButtonType);
+
+        // Set the dialog content
+        GridPane dialogContent = new GridPane();
+        dialogContent.setHgap(10);
+        dialogContent.setVgap(10);
+        dialogContent.addRow(0, new Label("Symbol for X:"), xSymbolPicker);
+        dialogContent.addRow(1, new Label("Color for X:"), xColorPicker);
+        dialogContent.addRow(2, new Label("Symbol for O:"), oSymbolPicker);
+        dialogContent.addRow(3, new Label("Color for O:"), oColorPicker);
+        dialog.getDialogPane().setContent(dialogContent);
+
+        // Convert the selected symbol and color values
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == saveButtonType) {
+                game.setUserSymbol(xSymbolPicker.getValue().charAt(0));
+                game.setAiSymbol(oSymbolPicker.getValue().charAt(0));
+                game.setUserColor(xColorPicker.getValue().toString());
+                game.setAiColor(oColorPicker.getValue().toString());
+            }
+            return null;
+        });
+
+        dialog.showAndWait();
+
         saveSettings();
+
     }
 
     @FXML
@@ -140,13 +187,18 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         Label label = (Label) scene.lookup("#statusBar");
         label.setText(text);
     }
-
     public void update(){
         char[][] gameMatrix = game.getGameLogic().getGameMatrix();
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
                 Button b = (Button) scene.lookup("#b" + i + j);
-                b.setText(String.valueOf(gameMatrix[i][j]));
+                if(gameMatrix[i][j] == 'X'){
+                    b.setText(String.valueOf(game.getUserSymbol()));
+                    b.setTextFill(Color.web(game.getUserColor()));
+                }else if(gameMatrix[i][j] == 'O'){
+                    b.setText(String.valueOf(game.getAiSymbol()));
+                    b.setTextFill(Color.web(game.getAiColor()));
+                }
             }
         }
     }
