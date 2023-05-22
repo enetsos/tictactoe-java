@@ -17,8 +17,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ComboBox id="userCombo" prefWidth="150.0" GridPane.rowIndex="1" onAction="#userCharEdit"/>
-            <ComboBox id="aiCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#aiCharEdit" />
+            <ComboBox fx:id="userCombo" prefWidth="150.0" GridPane.rowIndex="1" onAction="#userCharEdit"/>
+            <ComboBox fx:id="aiCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#aiCharEdit" />
             <ColorPicker fx:id="userColorPicker" GridPane.rowIndex="2" onAction="#changeUserColor">
                <value>
                   <Color />
