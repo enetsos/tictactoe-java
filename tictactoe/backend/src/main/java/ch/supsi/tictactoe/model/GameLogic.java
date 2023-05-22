@@ -43,6 +43,7 @@ public class GameLogic{
     public void setLanguage(String language){
         this.language = language;
     }
+
     public void setAIChar(char aiChar){
         if(players[1] == null){
             players[1] = new Ai(aiChar, gameMatrix);

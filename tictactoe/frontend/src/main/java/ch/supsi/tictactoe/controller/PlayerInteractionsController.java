@@ -155,6 +155,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         dialog.showAndWait();
 
         saveSettings();
+        update();
 
     }
 

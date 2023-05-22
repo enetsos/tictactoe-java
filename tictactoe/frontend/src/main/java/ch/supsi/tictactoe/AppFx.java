@@ -11,10 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.net.URL;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class AppFx extends Application {
 

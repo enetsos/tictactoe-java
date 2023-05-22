@@ -26,6 +26,8 @@ public class SettingsSaver extends Saver{
         builder.append("language:").append(logic.getLanguage()).append("\n");
         builder.append("userChar:").append(logic.getUserChar()).append("\n");
         builder.append("aiChar:").append(logic.getAiChar()).append("\n");
+        builder.append("userColor:").append(logic.getUserColor()).append("\n");
+        builder.append("aiColor:").append(logic.getAiColor()).append("\n");
         try {
             PrintWriter writer;
             writer = new PrintWriter(file);
@@ -48,10 +50,14 @@ public class SettingsSaver extends Saver{
             String lang = null;
             String user = null;
             String ai = null;
+            String userColor = "black";
+            String aiColor = "black";
             try {
                 lang = input.nextLine().split(":")[1];
                 user = input.nextLine().split(":")[1];
                 ai = input.nextLine().split(":")[1];
+                userColor = input.nextLine().split(":")[1];
+                aiColor = input.nextLine().split(":")[1];
             } catch (Exception e) {
                 lang = "en-EN";
                 user = "X";
@@ -61,6 +67,8 @@ public class SettingsSaver extends Saver{
             logic.setLanguage(lang);
             logic.setUserChar(user.charAt(0));
             logic.setAIChar(ai.charAt(0));
+            logic.setUserColor(userColor);
+            logic.setAiColor(aiColor);
 
         } catch (FileNotFoundException e) {
             return false;
