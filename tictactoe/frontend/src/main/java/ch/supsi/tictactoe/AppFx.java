@@ -66,8 +66,8 @@ public class AppFx extends Application {
         //Welcome Alert
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Tic Tac Toe");
-        alert.setHeaderText("Welcome to Tic Tac Toe!");
-        alert.setContentText("Click on the board to place your symbol.");
+        alert.setHeaderText(LocalizationHelper.getString("welcomeMessage"));
+        alert.setContentText(LocalizationHelper.getString("clickBoard"));
         alert.showAndWait();
 
     }
