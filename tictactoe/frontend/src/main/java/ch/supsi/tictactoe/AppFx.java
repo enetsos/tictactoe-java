@@ -5,7 +5,6 @@ import ch.supsi.tictactoe.controller.PlayerInteractionsController;
 import ch.supsi.tictactoe.gamelogic.Game;
 import ch.supsi.tictactoe.gamelogic.GameLogic;
 import ch.supsi.tictactoe.model.*;
-import ch.supsi.tictactoe.saver.SettingsSaver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,14 +21,21 @@ public class AppFx extends Application {
     private LocalizationController localizationController;
     private PlayerInteractionsController playerInteractionsController;
     private GameLogic logic = new GameLogic();
+    private SettingsModel settingsModel = new SettingsModel();
 
     public AppFx(){
 
-        SettingsSaver s = new SettingsSaver();
-        s.load(logic);
+        settingsModel.load();
+
+
+
+
+
+        //SettingsSaver s = new SettingsSaver();
+        //s.load(logic);
 
         LocalizationModel localizationModel = LocalizationModel.getInstance();
-        localizationModel.init("i18n.resources", Locale.forLanguageTag(logic.getLanguage()));
+        localizationModel.init("i18n.resources", Locale.forLanguageTag(settingsModel.getLanguage()));
         localizationController = new LocalizationController(localizationModel);
     }
     @Override
@@ -46,6 +52,7 @@ public class AppFx extends Application {
         Parent root = loader.load();
         playerInteractionsController = loader.getController();
         playerInteractionsController.setGame(game);
+        playerInteractionsController.setSettingsModel(settingsModel);
 
         Scene scene = new Scene(root, 600, 650);
         stage.setResizable(false);

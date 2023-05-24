@@ -1,31 +1,19 @@
 package ch.supsi.tictactoe.player;
 
-import ch.supsi.tictactoe.listener.GameLogicListener;
+import java.io.Serializable;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Ai extends Player {
-    public static final char DEFAULT_SYMBOL = 'O';
-
-    private final List<GameLogicListener> listeners = new ArrayList<>();
-
+public class Ai extends Player implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int nextRow = -1;
     private int nextCol = -1;
 
-    public Ai(char[][] gameMatrix) {
-        super(DEFAULT_SYMBOL, gameMatrix);
+    public Ai(Player[][] gameMatrix){
+        super(gameMatrix);
+        this.playerType = PlayerType.AI;
     }
 
-    public Ai(char symbol, char[][] gameMatrix) {
-        super(symbol, gameMatrix);
-    }
 
-    public void addListener(GameLogicListener listener){
-        listeners.add(listener);
-    }
-
-    public boolean play (){
+    public boolean play (User user){
 
         int freeCells = countFreeCells();
 
@@ -33,18 +21,18 @@ public class Ai extends Player {
             return false;
         }
 
-        if(checkWin(Ai.DEFAULT_SYMBOL)){
-            gameMatrix[nextRow][nextCol] = DEFAULT_SYMBOL;
-        } else if(checkWin(User.DEFAULT_SYMBOL)){
-            gameMatrix[nextRow][nextCol] = DEFAULT_SYMBOL;
+        if(checkWin()){
+            gameMatrix[nextRow][nextCol] = this;
+        } else if(checkWin(user.getPlayerType())){
+            gameMatrix[nextRow][nextCol] = this;
         }else{
             nextRow = (int) (Math.random() * 3);
             nextCol = (int) (Math.random() * 3);
-            while(gameMatrix[nextRow][nextCol] != 0){
+            while(gameMatrix[nextRow][nextCol] != null){
                 nextRow = (int) (Math.random() * 3);
                 nextCol = (int) (Math.random() * 3);
             }
-            gameMatrix[nextRow][nextCol] = DEFAULT_SYMBOL;
+            gameMatrix[nextRow][nextCol] = this;
         }
 
         return true;
@@ -54,7 +42,7 @@ public class Ai extends Player {
         int count = 0;
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                if(gameMatrix[i][j] == 0){
+                if(gameMatrix[i][j] == null){
                     count++;
                 }
             }
@@ -63,28 +51,31 @@ public class Ai extends Player {
     }
 
     private boolean checkWin(){
-        return checkWin(symbol);
+        return checkWin(getPlayerType());
     }
 
-    private boolean checkWin(char symbol){
+    private boolean checkWin(PlayerType p){
         int countRow = 0;
         int countCol = 0;
 
         // Check rows and columns
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                if(gameMatrix[i][j] == symbol){
-                    countRow++;
+                if(gameMatrix[i][j] != null){
+                    if(gameMatrix[i][j].getPlayerType() == p){
+                        countRow++;
+                    }
                 }
-                if(gameMatrix[j][i] == symbol){
-                    countCol++;
+                if(gameMatrix[j][i] != null){
+                    if(gameMatrix[j][i].getPlayerType() == p){
+                        countCol++;
+                    }
                 }
             }
 
-
             if(countRow == 2){
                 for(int j = 0; j < 3; j++){
-                    if(gameMatrix[i][j] == 0){
+                    if(gameMatrix[i][j] == null){
                         nextRow = i;
                         nextCol = j;
                         return true;
@@ -93,7 +84,7 @@ public class Ai extends Player {
             }
             if(countCol == 2){
                 for(int j = 0; j < 3; j++){
-                    if(gameMatrix[j][i] == 0){
+                    if(gameMatrix[j][i] == null){
                         nextRow = j;
                         nextCol = i;
                         return true;
@@ -107,16 +98,23 @@ public class Ai extends Player {
         //int count = 0;
         //Check diagonals
         for(int i = 0; i < 3; i++){
-            if(gameMatrix[i][i] == symbol){
-                countRow++;
-            }
-            if(gameMatrix[i][2-i] == symbol){
-                countCol++;
+            if(gameMatrix[i][i] != null && gameMatrix[2-i][i] != null){
+                if(gameMatrix[i][i] != null){
+                    if(gameMatrix[i][i].getPlayerType() == p){
+                        countRow++;
+                    }
+                }
+
+                if(gameMatrix[2-i][i] != null){
+                    if(gameMatrix[2-i][i].getPlayerType() == p){
+                        countCol++;
+                    }
+                }
             }
         }
         if(countRow == 2){
             for(int i = 0; i < 3; i++){
-                if(gameMatrix[i][i] == 0){
+                if(gameMatrix[i][i] == null){
                     nextRow = i;
                     nextCol = i;
                     return true;
@@ -125,7 +123,7 @@ public class Ai extends Player {
         }
         if(countCol == 2){
             for(int i = 0; i < 3; i++){
-                if(gameMatrix[i][2-i] == 0){
+                if(gameMatrix[i][2-i] == null){
                     nextRow = i;
                     nextCol = 2-i;
                     return true;
@@ -134,6 +132,10 @@ public class Ai extends Player {
         }
 
         return false;
+    }
+
+    public boolean isAI(){
+        return true;
     }
 
 }

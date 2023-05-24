@@ -1,62 +1,38 @@
 package ch.supsi.tictactoe.saver;
+import ch.supsi.tictactoe.player.Player;
 
-import ch.supsi.tictactoe.gamelogic.GameLogic;
-import ch.supsi.tictactoe.saver.Saver;
+import java.io.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
+public class GameSaver{
 
-public class GameSaver extends Saver {
-
-    public boolean save(File file, GameLogic logic){
-
-        StringBuilder builder = new StringBuilder();
-        char[][] matrix = logic.getGameMatrix();
-        char c;
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                if(matrix[i][j] == 0)
-                    builder.append(' ');
-                else
-                    builder.append(matrix[i][j]);
-            }
-            builder.append(System.lineSeparator());
-        }
-
+    public static boolean save(File file, Player[][] gameMatrix){
+        FileOutputStream fos = null;
         try {
-            PrintWriter writer;
-            writer = new PrintWriter(file);
-            writer.println(builder);
-            writer.close();
-        } catch (IOException ex) {
+            fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(gameMatrix);
+            oos.flush();
+            oos.close();
+        } catch (FileNotFoundException e) {
+            return false;
+        } catch (IOException e) {
             return false;
         }
         return true;
     }
 
-    public boolean load(File file, GameLogic logic){
+    public static Player[][] load(File file, Player[][] gameMatrix){
+        Player[][] result = null;
         try {
-            Scanner input = new Scanner(file);
-            char[][] matrix = new char[3][3];
-
-            while(input.hasNext()){
-                for (int i = 0; i < matrix.length; i++) {
-                    String line = input.nextLine();
-                    for (int j = 0; j < matrix[i].length; j++) {
-                        if(line.charAt(j) == ' ')
-                            matrix[i][j] = 0;
-                        else
-                            matrix[i][j] = line.charAt(j);
-                    }
-                }
-            }
-            logic.setGameMatrix(matrix);
-        } catch (FileNotFoundException e) {
-            return false;
+            FileInputStream fis = new FileInputStream(file);
+            System.out.println("Done");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            result = (Player[][]) ois.readObject();
+        } catch (IOException e) {
+            return null;
+        } catch (ClassNotFoundException e) {
+            return null;
         }
-        return true;
+        return result;
     }
 }

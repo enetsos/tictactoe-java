@@ -3,12 +3,13 @@ package ch.supsi.tictactoe.gamelogic;
 import ch.supsi.tictactoe.listener.GameLogicListener;
 import ch.supsi.tictactoe.player.Ai;
 import ch.supsi.tictactoe.player.Player;
+import ch.supsi.tictactoe.player.PlayerType;
 import ch.supsi.tictactoe.player.User;
 
 public class GameLogic{
     private Player[] players;
 
-    private char[][] gameMatrix;
+    private Player[][] gameMatrix;
 
     private String language;
 
@@ -20,102 +21,67 @@ public class GameLogic{
 
     //=========== CONSTRUCTOR ===========//
     public GameLogic(){
-        gameMatrix = new char[3][3];
+        gameMatrix = new Player[3][3];
         this.players = new Player[2];
+        players[0] = new User(gameMatrix);
+        players[1] = new Ai(gameMatrix);
     }
 
     //=========== GETTERS ===========//
-    public char getUserSymbol(){
-        return players[0].getSymbol();
-    }
-    public char getAiSymbol(){
-        return players[1].getSymbol();
-    }
-    public String getLanguage(){
-        return language;
-    }
-    public String getCurrentLanguage() { return currentLanguage;}
-    public char[][] getGameMatrix() {
+    public Player[][] getGameMatrix() {
         return gameMatrix;
     }
-    public String getUserColor() {
-        return players[0].getColor();
-    }
-
-    public String getAiColor() {
-        return players[1].getColor();
+    public Player[] getPlayers() {
+        return players;
     }
 
     //=========== SETTERS ===========//
     public void setListener(GameLogicListener listener){
         this.listener = listener;
     }
-    public void setGameMatrix(char[][] gameMatrix){
+    public void setGameMatrix(Player[][] gameMatrix){
         this.gameMatrix = gameMatrix;
         for(int i = 0; i < players.length; i++){
             players[i].setGameMatrix(gameMatrix);
         }
     }
-    public void setLanguage(String language){
-        if(this.language == null)
-            this.currentLanguage = language;
-        this.language = language;
-    }
-    public void setAiSymbol(char aiChar){
-        if(players[1] == null){
-            players[1] = new Ai(aiChar, gameMatrix);
-        }else{
-            players[1].setSymbol(aiChar);
-        }
-
-    }
-    public void setUserSymbol(char userChar){
-        if(players[0] == null){
-            players[0] = new User(userChar, gameMatrix);
-        }else {
-            players[0].setSymbol(userChar);
-        }
-
-    }
-    public void setUserColor(String color) {
-        players[0].setColor(color);
-    }
-
-    public void setAiColor(String color) {
-        players[1].setColor(color);
-    }
-
 
     //=========== PRIVATE METHODS ===========//
     private boolean userWin(){
-        return checkWin(User.DEFAULT_SYMBOL);
+        return checkWin(players[0].getPlayerType());
     }
 
     private boolean AIWin(){
-        return checkWin(Ai.DEFAULT_SYMBOL);
+        return checkWin(players[1].getPlayerType());
     }
     private boolean isDraw(){
         for(int i = 0; i < gameMatrix.length; i++){
             for(int j = 0; j < gameMatrix[i].length; j++){
-                if(gameMatrix[i][j] == '\u0000'){
+                if(gameMatrix[i][j] == null){
                     return false;
                 }
             }
         }
         return true;
     }
-    private boolean checkWin(char symbol){
+    private boolean checkWin(PlayerType p){
         int countRow = 0;
         int countCol = 0;
 
         // Check rows and columns
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                if(gameMatrix[i][j] == symbol){
-                    countRow++;
+
+                if(gameMatrix[i][j] != null){
+                    if(gameMatrix[i][j].getPlayerType() == p){
+                        countRow++;
+                    }
                 }
-                if(gameMatrix[j][i] == symbol){
-                    countCol++;
+
+                if(gameMatrix[j][i] != null){
+                    if(gameMatrix[j][i].getPlayerType() == p){
+                        countCol++;
+                    }
                 }
             }
 
@@ -127,12 +93,19 @@ public class GameLogic{
         }
 
         for(int i = 0; i < 3; i++){
-            if(gameMatrix[i][i] == symbol){
-                countRow++;
+
+            if(gameMatrix[i][i] != null){
+                if(gameMatrix[i][i].getPlayerType() == p){
+                    countRow++;
+                }
             }
-            if(gameMatrix[i][2-i] == symbol){
-                countCol++;
+
+            if(gameMatrix[i][2-i] != null){
+                if(gameMatrix[i][2-i].getPlayerType() == p){
+                    countCol++;
+                }
             }
+
         }
         if(countRow == 3 || countCol == 3)
             return true;
@@ -142,7 +115,7 @@ public class GameLogic{
 
     //=========== PUBLIC METHODS ===========//
     public void newGame(){
-        gameMatrix = new char[3][3];
+        gameMatrix = new Player[3][3];
         players[0].setGameMatrix(gameMatrix);
         players[1].setGameMatrix(gameMatrix);
     }
@@ -152,7 +125,7 @@ public class GameLogic{
             if (userWin()){
                 listener.userWin();
             }else{
-                ((Ai) players[1]).play();
+                ((Ai) players[1]).play((User)players[0]);
                 if(AIWin()){
                     listener.aiWin();
                 }else if(isDraw()){

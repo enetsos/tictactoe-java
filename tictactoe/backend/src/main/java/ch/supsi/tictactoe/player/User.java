@@ -1,22 +1,24 @@
 package ch.supsi.tictactoe.player;
 
-public class User extends Player {
+import java.io.Serializable;
 
-    public static final char DEFAULT_SYMBOL = 'X';
+public class User extends Player implements Serializable {
 
-    public User(char[][] gameMatrix) {
-        super(DEFAULT_SYMBOL, gameMatrix);
-    }
+    public User(Player[][] gameMatrix){
+        super(gameMatrix);
+        this.playerType = PlayerType.USER;
+    };
 
-    public User(char symbol, char[][] gameMatrix) {
-        super(symbol, gameMatrix);
-    }
 
     public boolean play (int row, int column){
-        if(gameMatrix[row][column] != 0){
+        if(gameMatrix[row][column] != null){
             return false;
         }
-        gameMatrix[row][column] = DEFAULT_SYMBOL;
+        gameMatrix[row][column] = this;
+        return true;
+    }
+
+    public boolean isUser(){
         return true;
     }
 }

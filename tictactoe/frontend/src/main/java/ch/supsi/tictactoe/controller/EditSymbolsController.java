@@ -1,8 +1,7 @@
 package ch.supsi.tictactoe.controller;
 
 import ch.supsi.tictactoe.listener.GameListener;
-import ch.supsi.tictactoe.gamelogic.GameLogic;
-import ch.supsi.tictactoe.saver.SettingsSaver;
+import ch.supsi.tictactoe.model.SettingsModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
@@ -11,9 +10,9 @@ import javafx.scene.paint.Color;
 import java.util.Collections;
 
 public class EditSymbolsController {
-    private GameLogic logic;
+   // private GameLogic logic;
+    private SettingsModel settingsModel;
     private GameListener listener;
-    private SettingsSaver saver = new SettingsSaver();
     private Character[] characters = new Character[26];
     @FXML
     private ComboBox aiCombo;
@@ -42,12 +41,12 @@ public class EditSymbolsController {
 
         char val = (char)userCombo.getValue();
 
-        aiCombo.getItems().add(logic.getUserSymbol());
+        aiCombo.getItems().add(settingsModel.getTheme().getUserSymbol());
         Collections.sort(aiCombo.getItems());
 
         aiCombo.getItems().remove(val-65);
 
-        logic.setUserSymbol(val);
+        settingsModel.getTheme().setUserSymbol(val);
         saveSettings();
         listener.update();
         finishedCombo = true;
@@ -61,12 +60,12 @@ public class EditSymbolsController {
 
         char val = (char)aiCombo.getValue();
 
-        userCombo.getItems().add(logic.getAiSymbol());
+        userCombo.getItems().add(settingsModel.getTheme().getAiSymbol());
         Collections.sort(userCombo.getItems());
 
         userCombo.getItems().remove(val-65);
 
-        logic.setAiSymbol(val);
+        settingsModel.getTheme().setAiSymbol(val);
         saveSettings();
         listener.update();
         finishedCombo = true;
@@ -74,14 +73,14 @@ public class EditSymbolsController {
 
     @FXML
     public void changeUserColor(ActionEvent actionEvent) {
-        logic.setUserColor(((ColorPicker)actionEvent.getSource()).getValue().toString());
+        settingsModel.getTheme().setUserColor(((ColorPicker)actionEvent.getSource()).getValue().toString());
         saveSettings();
         listener.update();
     }
 
     @FXML
     public void changeAiColor(ActionEvent actionEvent) {
-        logic.setAiColor(((ColorPicker)actionEvent.getSource()).getValue().toString());
+        settingsModel.getTheme().setAiColor(((ColorPicker)actionEvent.getSource()).getValue().toString());
         saveSettings();
         listener.update();
     }
@@ -93,24 +92,24 @@ public class EditSymbolsController {
     }
 
 
-    public void setGameLogic(GameLogic logic){
-        this.logic = logic;
+    public void setSettings(SettingsModel settings){
+        this.settingsModel = settings;
 
         userCombo.getItems().addAll(characters);
         aiCombo.getItems().addAll(characters);
 
-        aiCombo.getItems().remove(logic.getUserSymbol() - 65);
-        userCombo.getItems().remove(logic.getAiSymbol() - 65);
+        aiCombo.getItems().remove(settingsModel.getTheme().getUserSymbol() - 65);
+        userCombo.getItems().remove(settingsModel.getTheme().getAiSymbol() - 65);
 
-        userCombo.setValue(logic.getUserSymbol());
-        aiCombo.setValue(logic.getAiSymbol());
+        userCombo.setValue(settingsModel.getTheme().getUserSymbol());
+        aiCombo.setValue(settingsModel.getTheme().getAiSymbol());
 
-        userColorPicker.setValue(Color.web(logic.getUserColor()));
-        aiColorPicker.setValue(Color.web(logic.getAiColor()));
+        userColorPicker.setValue(Color.web(settingsModel.getTheme().getUserColor()));
+        aiColorPicker.setValue(Color.web(settingsModel.getTheme().getAiColor()));
     }
 
     private void saveSettings(){
-        saver.save(logic);
+        settingsModel.save();
     }
 
 

@@ -1,11 +1,11 @@
 package ch.supsi.tictactoe.model;
 
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class LocalizationModel implements LocalizationHandler {
-
     private static LocalizationModel model;
 
     private boolean initialized;

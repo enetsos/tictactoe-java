@@ -2,6 +2,9 @@ package ch.supsi.tictactoe.controller;
 
 import ch.supsi.tictactoe.gamelogic.Game;
 import ch.supsi.tictactoe.gamelogic.GameResult;
+import ch.supsi.tictactoe.player.Ai;
+import ch.supsi.tictactoe.player.Player;
+import ch.supsi.tictactoe.player.User;
 import ch.supsi.tictactoe.view.About;
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.model.*;
@@ -20,6 +23,8 @@ public class PlayerInteractionsController implements GameListener {
     private Game game;
     private Scene scene;
     private File file;
+    private SettingsModel settingsModel;
+
     @FXML
     private Label statusBar;
 
@@ -109,7 +114,7 @@ public class PlayerInteractionsController implements GameListener {
 
     @FXML
     public void editSymbols(ActionEvent e) {
-        EditSymbols es = new EditSymbols(game.getGameLogic(), this);
+        EditSymbols es = new EditSymbols(settingsModel, this);
         es.show();
     }
 
@@ -117,11 +122,11 @@ public class PlayerInteractionsController implements GameListener {
     public void editLanguage(ActionEvent e) {
         String id = e.getSource().toString().toLowerCase().substring(12, 14);
         if(id.equals("en")){
-            game.setLanguage("en-EN");
+            settingsModel.setLanguage("en-EN");
         }else if(id.equals("it")){
-            game.setLanguage("it-CH");
+            settingsModel.setLanguage("it-IT");
         }
-        game.saveSettings();
+        settingsModel.save();
     }
 
     @FXML
@@ -152,18 +157,41 @@ public class PlayerInteractionsController implements GameListener {
     // =========== GameListener ===========
     @Override
     public void update(){
-        char[][] gameMatrix = game.getGameLogic().getGameMatrix();
+        Player[][] gameMatrix = game.getGameLogic().getGameMatrix();
+        System.out.println("Cao");
+
+        //Print the gameMatrix (X for user and O for ai)
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++ ){
+                if(gameMatrix[i][j] == null) {
+                    System.out.print(" ");
+                }else{
+                    if(gameMatrix[i][j].isUser()){
+                        System.out.print("X");
+                    }else if(gameMatrix[i][j].isAI()){
+                        System.out.print("O");
+                    }
+                }
+            }
+        }
+
+
+
+        ThemeModel theme = settingsModel.getTheme();
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
                 Button b = (Button) scene.lookup("#b" + i + j);
-                if(gameMatrix[i][j] == 'X'){
-                    b.setText(String.valueOf(game.getUserSymbol()));
-                    b.setTextFill(Color.web(game.getUserColor()));
-                }else if(gameMatrix[i][j] == 'O'){
-                    b.setText(String.valueOf(game.getAiSymbol()));
-                    b.setTextFill(Color.web(game.getAiColor()));
-                }else{
+                if(gameMatrix[i][j] == null) {
                     b.setText("");
+                }else{
+                    if(gameMatrix[i][j].isUser()){
+                        System.out.println("Called");
+                        b.setText(String.valueOf(theme.getUserSymbol()));
+                        b.setTextFill(Color.web(theme.getUserColor()));
+                    }else if(gameMatrix[i][j].isAI()){
+                        b.setText(String.valueOf(theme.getAiSymbol()));
+                        b.setTextFill(Color.web(theme.getAiColor()));
+                    }
                 }
             }
         }
@@ -183,6 +211,12 @@ public class PlayerInteractionsController implements GameListener {
                 break;
         }
         gameEnded();
+    }
+
+    // =========== Public Methods ===========
+
+    public void setSettingsModel(SettingsModel settingsModel){
+        this.settingsModel = settingsModel;
     }
 
 

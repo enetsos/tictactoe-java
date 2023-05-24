@@ -1,43 +1,20 @@
 package ch.supsi.tictactoe.player;
 
-public abstract class Player {
+import java.io.Serializable;
 
-    protected char symbol;
+public abstract class Player implements Serializable, Playable {
+    private static final long serialVersionUID = 1L;
+    protected Player[][] gameMatrix;
+    protected PlayerType playerType;
 
-    protected String color;
-
-    protected char[][] gameMatrix;
-
-    public Player(char symbol, String color, char[][] gameMatrix) {
-        this.symbol = symbol;
-        this.color = color;
+    public Player(Player[][] gameMatrix){
+        this.gameMatrix = gameMatrix;
+    };
+    public void setGameMatrix(Player[][] gameMatrix){
         this.gameMatrix = gameMatrix;
     }
-
-    public Player(char symbol, char[][] gameMatrix) {
-        this(symbol, "black", gameMatrix);
+    public PlayerType getPlayerType(){
+        return playerType;
     }
 
-
-    public char getSymbol() {
-        return symbol;
-    }
-
-
-    public void setSymbol(char symbol) {
-        this.symbol = symbol;
-    }
-
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public void setGameMatrix(char[][] gameMatrix){
-        this.gameMatrix = gameMatrix;
-    }
-
-    public String getColor() {
-        return color;
-    }
 }

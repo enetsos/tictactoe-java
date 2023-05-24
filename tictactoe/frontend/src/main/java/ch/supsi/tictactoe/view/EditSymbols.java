@@ -5,6 +5,7 @@ import ch.supsi.tictactoe.controller.LocalizationController;
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.gamelogic.GameLogic;
 import ch.supsi.tictactoe.model.LocalizationModel;
+import ch.supsi.tictactoe.model.SettingsModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,11 +21,11 @@ public class EditSymbols {
     private LocalizationController localizationController;
     private EditSymbolsController editSymbolsController;
     private static boolean isOpen = false;
-    private GameLogic logic;
+    private SettingsModel settings;
     private GameListener listener;
 
-    public EditSymbols(GameLogic logic, GameListener listener) {
-        this.logic = logic;
+    public EditSymbols(SettingsModel settings, GameListener listener) {
+        this.settings = settings;
         this.listener = listener;
         URL symbolMenuFxmlUrl = getClass().getResource("/editsymbols.fxml");
         if (symbolMenuFxmlUrl == null) {
@@ -32,7 +33,7 @@ public class EditSymbols {
         }
 
         LocalizationModel localizationModel = LocalizationModel.getInstance();
-        localizationModel.init("i18n.resources", Locale.forLanguageTag(logic.getCurrentLanguage()));
+        localizationModel.init("i18n.resources", Locale.forLanguageTag(settings.getLanguage()));
         localizationController = new LocalizationController(localizationModel);
 
         FXMLLoader symbolMenuLoader = new FXMLLoader(symbolMenuFxmlUrl, localizationController.getResourceBundle());
@@ -59,7 +60,7 @@ public class EditSymbols {
         stage.setScene(scene);
         stage.setOnCloseRequest(e -> isOpen = false);
 
-        editSymbolsController.setGameLogic(logic);
+        editSymbolsController.setSettings(settings);
         editSymbolsController.setListener(listener);
 
         stage.show();
