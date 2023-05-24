@@ -2,9 +2,7 @@ package ch.supsi.tictactoe.gamelogic;
 
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.listener.GameLogicListener;
-import ch.supsi.tictactoe.player.Ai;
 import ch.supsi.tictactoe.player.Player;
-import ch.supsi.tictactoe.player.User;
 import ch.supsi.tictactoe.saver.GameSaver;
 
 import java.io.File;
@@ -19,14 +17,6 @@ public class Game implements GameLogicListener{
         this.gameLogic = logic;
         gameLogic.setListener(this);
     }
-
-    public User getUser(){
-        return (User) gameLogic.getPlayers()[0];
-    }
-    public Ai getAi(){
-        return (Ai) gameLogic.getPlayers()[1];
-    }
-
 
     public GameLogic getGameLogic() {
         return gameLogic;

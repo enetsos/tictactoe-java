@@ -18,15 +18,6 @@ public class SettingsContainer implements Serializable {
         this.themeModel = themeModel;
     }
 
-    public void setThemeModel(ThemeModel themeModel){
-        this.themeModel = themeModel;
-    }
-
-    public void setLanguageModel(LanguageModel languageModel){
-        this.languageModel = languageModel;
-    }
-
-
     public void setLanguage(String language){
         languageModel.setLanguage(language);
     }

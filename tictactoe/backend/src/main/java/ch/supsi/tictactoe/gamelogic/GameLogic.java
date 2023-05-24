@@ -11,11 +11,6 @@ public class GameLogic{
 
     private Player[][] gameMatrix;
 
-    private String language;
-
-    private String currentLanguage;
-
-
     private GameLogicListener listener;
 
 
@@ -30,9 +25,6 @@ public class GameLogic{
     //=========== GETTERS ===========//
     public Player[][] getGameMatrix() {
         return gameMatrix;
-    }
-    public Player[] getPlayers() {
-        return players;
     }
 
     //=========== SETTERS ===========//

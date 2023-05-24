@@ -2,9 +2,7 @@ package ch.supsi.tictactoe.controller;
 
 import ch.supsi.tictactoe.gamelogic.Game;
 import ch.supsi.tictactoe.gamelogic.GameResult;
-import ch.supsi.tictactoe.player.Ai;
 import ch.supsi.tictactoe.player.Player;
-import ch.supsi.tictactoe.player.User;
 import ch.supsi.tictactoe.view.About;
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.model.*;
@@ -158,22 +156,6 @@ public class PlayerInteractionsController implements GameListener {
     @Override
     public void update(){
         Player[][] gameMatrix = game.getGameLogic().getGameMatrix();
-        System.out.println("Cao");
-
-        //Print the gameMatrix (X for user and O for ai)
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++ ){
-                if(gameMatrix[i][j] == null) {
-                    System.out.print(" ");
-                }else{
-                    if(gameMatrix[i][j].isUser()){
-                        System.out.print("X");
-                    }else if(gameMatrix[i][j].isAI()){
-                        System.out.print("O");
-                    }
-                }
-            }
-        }
 
 
 
@@ -185,7 +167,6 @@ public class PlayerInteractionsController implements GameListener {
                     b.setText("");
                 }else{
                     if(gameMatrix[i][j].isUser()){
-                        System.out.println("Called");
                         b.setText(String.valueOf(theme.getUserSymbol()));
                         b.setTextFill(Color.web(theme.getUserColor()));
                     }else if(gameMatrix[i][j].isAI()){

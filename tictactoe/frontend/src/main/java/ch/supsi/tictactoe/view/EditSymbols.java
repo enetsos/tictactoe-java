@@ -3,7 +3,6 @@ package ch.supsi.tictactoe.view;
 import ch.supsi.tictactoe.controller.EditSymbolsController;
 import ch.supsi.tictactoe.controller.LocalizationController;
 import ch.supsi.tictactoe.listener.GameListener;
-import ch.supsi.tictactoe.gamelogic.GameLogic;
 import ch.supsi.tictactoe.model.LocalizationModel;
 import ch.supsi.tictactoe.model.SettingsModel;
 import javafx.fxml.FXMLLoader;
