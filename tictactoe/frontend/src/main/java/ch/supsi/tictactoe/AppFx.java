@@ -2,7 +2,10 @@ package ch.supsi.tictactoe;
 
 import ch.supsi.tictactoe.controller.LocalizationController;
 import ch.supsi.tictactoe.controller.PlayerInteractionsController;
+import ch.supsi.tictactoe.gamelogic.Game;
+import ch.supsi.tictactoe.gamelogic.GameLogic;
 import ch.supsi.tictactoe.model.*;
+import ch.supsi.tictactoe.saver.SettingsSaver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

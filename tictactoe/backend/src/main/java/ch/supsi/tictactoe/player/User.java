@@ -1,4 +1,6 @@
-package ch.supsi.tictactoe.model;
+package ch.supsi.tictactoe.player;
+
+import ch.supsi.tictactoe.player.Player;
 
 public class User extends Player {
 

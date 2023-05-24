@@ -1,11 +1,11 @@
-package ch.supsi.tictactoe.model;
+package ch.supsi.tictactoe.player;
 
 import ch.supsi.tictactoe.listener.GameLogicListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ai extends Player{
+public class Ai extends Player {
     public static final char DEFAULT_SYMBOL = 'O';
 
     private final List<GameLogicListener> listeners = new ArrayList<>();
@@ -33,9 +33,9 @@ public class Ai extends Player{
             return false;
         }
 
-        if(checkWin()){
+        if(checkWin(Ai.DEFAULT_SYMBOL)){
             gameMatrix[nextRow][nextCol] = DEFAULT_SYMBOL;
-        } else if(checkWin('X')){
+        } else if(checkWin(User.DEFAULT_SYMBOL)){
             gameMatrix[nextRow][nextCol] = DEFAULT_SYMBOL;
         }else{
             nextRow = (int) (Math.random() * 3);

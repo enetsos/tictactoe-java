@@ -1,4 +1,7 @@
-package ch.supsi.tictactoe.model;
+package ch.supsi.tictactoe.saver;
+
+import ch.supsi.tictactoe.gamelogic.GameLogic;
+import ch.supsi.tictactoe.saver.Saver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class SettingsSaver extends Saver{
+public class SettingsSaver extends Saver {
 
     private static File file;
 
@@ -24,8 +27,8 @@ public class SettingsSaver extends Saver{
         StringBuilder builder = new StringBuilder();
 
         builder.append("language:").append(logic.getLanguage()).append("\n");
-        builder.append("userChar:").append(logic.getUserChar()).append("\n");
-        builder.append("aiChar:").append(logic.getAiChar()).append("\n");
+        builder.append("userChar:").append(logic.getUserSymbol()).append("\n");
+        builder.append("aiChar:").append(logic.getAiSymbol()).append("\n");
         builder.append("userColor:").append(logic.getUserColor()).append("\n");
         builder.append("aiColor:").append(logic.getAiColor()).append("\n");
         try {
@@ -63,8 +66,8 @@ public class SettingsSaver extends Saver{
             }
 
             logic.setLanguage(lang);
-            logic.setUserChar(user.charAt(0));
-            logic.setAIChar(ai.charAt(0));
+            logic.setUserSymbol(user.charAt(0));
+            logic.setAiSymbol(ai.charAt(0));
             logic.setUserColor(userColor);
             logic.setAiColor(aiColor);
 

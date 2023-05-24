@@ -1,4 +1,4 @@
-package ch.supsi.tictactoe.model;
+package ch.supsi.tictactoe.player;
 
 import java.awt.*;
 

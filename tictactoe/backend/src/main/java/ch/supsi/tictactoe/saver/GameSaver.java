@@ -1,4 +1,7 @@
-package ch.supsi.tictactoe.model;
+package ch.supsi.tictactoe.saver;
+
+import ch.supsi.tictactoe.gamelogic.GameLogic;
+import ch.supsi.tictactoe.saver.Saver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class GameSaver extends Saver{
+public class GameSaver extends Saver {
 
     public boolean save(File file, GameLogic logic){
 

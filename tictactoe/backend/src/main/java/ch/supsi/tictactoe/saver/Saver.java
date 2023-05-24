@@ -1,4 +1,6 @@
-package ch.supsi.tictactoe.model;
+package ch.supsi.tictactoe.saver;
+
+import ch.supsi.tictactoe.gamelogic.GameLogic;
 
 import java.io.File;
 

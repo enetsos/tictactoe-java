@@ -1,8 +1,8 @@
 package ch.supsi.tictactoe.controller;
 
 import ch.supsi.tictactoe.listener.GameListener;
-import ch.supsi.tictactoe.model.GameLogic;
-import ch.supsi.tictactoe.model.SettingsSaver;
+import ch.supsi.tictactoe.gamelogic.GameLogic;
+import ch.supsi.tictactoe.saver.SettingsSaver;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
@@ -42,12 +42,12 @@ public class EditSymbolsController {
 
         char val = (char)userCombo.getValue();
 
-        aiCombo.getItems().add(logic.getUserChar());
+        aiCombo.getItems().add(logic.getUserSymbol());
         Collections.sort(aiCombo.getItems());
 
         aiCombo.getItems().remove(val-65);
 
-        logic.setUserChar(val);
+        logic.setUserSymbol(val);
         saveSettings();
         listener.update();
         finishedCombo = true;
@@ -61,12 +61,12 @@ public class EditSymbolsController {
 
         char val = (char)aiCombo.getValue();
 
-        userCombo.getItems().add(logic.getAiChar());
+        userCombo.getItems().add(logic.getAiSymbol());
         Collections.sort(userCombo.getItems());
 
         userCombo.getItems().remove(val-65);
 
-        logic.setAIChar(val);
+        logic.setAiSymbol(val);
         saveSettings();
         listener.update();
         finishedCombo = true;
@@ -99,11 +99,11 @@ public class EditSymbolsController {
         userCombo.getItems().addAll(characters);
         aiCombo.getItems().addAll(characters);
 
-        aiCombo.getItems().remove(logic.getUserChar() - 65);
-        userCombo.getItems().remove(logic.getAiChar() - 65);
+        aiCombo.getItems().remove(logic.getUserSymbol() - 65);
+        userCombo.getItems().remove(logic.getAiSymbol() - 65);
 
-        userCombo.setValue(logic.getUserChar());
-        aiCombo.setValue(logic.getAiChar());
+        userCombo.setValue(logic.getUserSymbol());
+        aiCombo.setValue(logic.getAiSymbol());
 
         userColorPicker.setValue(Color.web(logic.getUserColor()));
         aiColorPicker.setValue(Color.web(logic.getAiColor()));

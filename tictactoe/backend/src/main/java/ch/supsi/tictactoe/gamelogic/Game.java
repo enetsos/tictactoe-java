@@ -1,7 +1,9 @@
-package ch.supsi.tictactoe.model;
+package ch.supsi.tictactoe.gamelogic;
 
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.listener.GameLogicListener;
+import ch.supsi.tictactoe.saver.GameSaver;
+import ch.supsi.tictactoe.saver.SettingsSaver;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,8 +11,8 @@ import java.util.List;
 
 public class Game {
     private final GameLogic gameLogic;
-    private final SettingsSaver SettingsSaver = new SettingsSaver();
-    private final GameSaver GameSaver = new GameSaver();
+    private final ch.supsi.tictactoe.saver.SettingsSaver SettingsSaver = new SettingsSaver();
+    private final ch.supsi.tictactoe.saver.GameSaver GameSaver = new GameSaver();
 
     private final List<GameListener> listeners = new ArrayList<>();
 
@@ -32,7 +34,7 @@ public class Game {
     }
 
     public void addGameLogicListener(GameLogicListener listener){
-        gameLogic.addListener(listener);
+        gameLogic.setListener(listener);
     }
     public void saveGame(File file){
         GameSaver.save(file, gameLogic);
@@ -74,9 +76,6 @@ public class Game {
         SettingsSaver.save(gameLogic);
     }
 
-    public String getColor(char gameMatrix) {
-        return gameLogic.getColor(gameMatrix);
-    }
 
     public String getUserColor() {
         return gameLogic.getUserColor();

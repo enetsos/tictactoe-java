@@ -1,5 +1,6 @@
 package ch.supsi.tictactoe.controller;
 
+import ch.supsi.tictactoe.gamelogic.Game;
 import ch.supsi.tictactoe.view.About;
 import ch.supsi.tictactoe.listener.GameLogicListener;
 import ch.supsi.tictactoe.listener.GameListener;
@@ -16,10 +17,8 @@ import javafx.stage.FileChooser;
 import java.io.File;
 
 public class PlayerInteractionsController implements GameListener, GameLogicListener {
-
     private Game game;
     private Scene scene;
-
     private File file;
 
     public void setGame(Game game){
@@ -30,9 +29,11 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         this.scene = scene;
     }
 
+    // =========== FXML ===========
 
     @FXML
     public void newGame(ActionEvent e) {
+        //New Game
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("New Game");
         alert.setHeaderText(LocalizationHelper.getString("askNewGame"));
@@ -42,26 +43,22 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         alert.getButtonTypes().setAll(saveAndNewGame, newGame, cancel);
         alert.showAndWait();
 
-        if(alert.getResult().getText().equals(LocalizationHelper.getString("save"))){
+        String choice = alert.getResult().getText();
+
+        if(choice.equals(LocalizationHelper.getString("cancel"))){
+            return;
+        }else if(choice.equals(LocalizationHelper.getString("save"))){
             saveGame(e);
-            game.newGame();
-
-            update();
-            updateStatusBar(LocalizationHelper.getString("info.newGame"));
         }
-
-        if(alert.getResult().getText().equals(LocalizationHelper.getString("dontSave"))){
-            game.newGame();
-            update();
-            updateStatusBar(LocalizationHelper.getString("info.newGame"));
-        }
-
+        updateStatusBar(LocalizationHelper.getString("info.newGame"));
+        game.newGame();
+        update();
     }
 
     @FXML
     public void openGame(ActionEvent e) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Game");
+        fileChooser.setTitle(LocalizationHelper.getString("opengame"));
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Tic Tac Toe Game", "*.ttt")
         );
@@ -84,7 +81,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     @FXML
     public void saveGameAs(ActionEvent e) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Game");
+        fileChooser.setTitle(LocalizationHelper.getString("savegame"));
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Tic Tac Toe Game", "*.ttt")
         );
@@ -108,13 +105,8 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
 
     @FXML
     public void editSymbols(ActionEvent e) {
-
-        EditSymbols esm = new EditSymbols(game.getGameLogic(), this);
-        esm.show();
-
-        saveSettings();
-        update();
-
+        EditSymbols es = new EditSymbols(game.getGameLogic(), this);
+        es.show();
     }
 
     @FXML
@@ -147,16 +139,17 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         game.getGameLogic().playerAction(row, col);
         update();
 
-        if(game.getGameLogic().userWin())
+        /*if(game.getGameLogic().userWin())
             userWin();
         else if(game.getGameLogic().AIWin())
             aiWin();
         else if(game.getGameLogic().isDraw())
             allCellOccupied();
-
+*/
     }
 
-    //update status bar
+
+    // =========== GameListener ===========
     public void updateStatusBar(String text){
         Label label = (Label) scene.lookup("#statusBar");
         label.setText(text);
@@ -200,6 +193,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     @Override
     public void userWin() {
         game.gamesOver();
+        update();
         updateStatusBar(LocalizationHelper.getString("info.youWin"));
         gameEnded();
     }
@@ -207,6 +201,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     @Override
     public void aiWin() {
         game.gamesOver();
+        update();
         updateStatusBar(LocalizationHelper.getString("info.aiWin"));
         gameEnded();
     }
@@ -220,6 +215,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     public void allCellOccupied() {
         game.gamesOver();
         updateStatusBar(LocalizationHelper.getString("info.draw"));
+        update();
         gameEnded();
     }
 
