@@ -1,14 +1,10 @@
 package ch.supsi.tictactoe.player;
 
-import java.awt.*;
-
 public abstract class Player {
 
     protected char symbol;
 
     protected String color;
-
-    private boolean round;
 
     protected char[][] gameMatrix;
 
@@ -22,9 +18,6 @@ public abstract class Player {
         this(symbol, "black", gameMatrix);
     }
 
-    public Player(char[][] gameMatrix) {
-        this.gameMatrix = gameMatrix;
-    }
 
     public char getSymbol() {
         return symbol;

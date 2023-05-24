@@ -1,8 +1,8 @@
 package ch.supsi.tictactoe.controller;
 
 import ch.supsi.tictactoe.gamelogic.Game;
+import ch.supsi.tictactoe.gamelogic.GameResult;
 import ch.supsi.tictactoe.view.About;
-import ch.supsi.tictactoe.listener.GameLogicListener;
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.model.*;
 import ch.supsi.tictactoe.view.EditSymbols;
@@ -16,13 +16,16 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
-public class PlayerInteractionsController implements GameListener, GameLogicListener {
+public class PlayerInteractionsController implements GameListener {
     private Game game;
     private Scene scene;
     private File file;
+    @FXML
+    private Label statusBar;
 
     public void setGame(Game game){
         this.game = game;
+        game.setListener(this);
     }
 
     public void setScene(Scene scene){
@@ -35,7 +38,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     public void newGame(ActionEvent e) {
         //New Game
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("New Game");
+        alert.setTitle(LocalizationHelper.getString("new"));
         alert.setHeaderText(LocalizationHelper.getString("askNewGame"));
         ButtonType saveAndNewGame = new ButtonType(LocalizationHelper.getString("save"));
         ButtonType newGame = new ButtonType(LocalizationHelper.getString("dontSave"));
@@ -50,7 +53,8 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         }else if(choice.equals(LocalizationHelper.getString("save"))){
             saveGame(e);
         }
-        updateStatusBar(LocalizationHelper.getString("info.newGame"));
+        statusBar.setText(LocalizationHelper.getString("info.newGame"));
+
         game.newGame();
         update();
     }
@@ -113,11 +117,11 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     public void editLanguage(ActionEvent e) {
         String id = e.getSource().toString().toLowerCase().substring(12, 14);
         if(id.equals("en")){
-            game.getGameLogic().setLanguage("en-EN");
+            game.setLanguage("en-EN");
         }else if(id.equals("it")){
-            game.getGameLogic().setLanguage("it-IT");
+            game.setLanguage("it-CH");
         }
-        saveSettings();
+        game.saveSettings();
     }
 
     @FXML
@@ -132,28 +136,21 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         }
         Button button = (Button) e.getSource();
 
-        updateStatusBar(LocalizationHelper.getString("info.yourTurn"));
+        statusBar.setText(LocalizationHelper.getString("info.yourTurn"));
         String id = button.getId();
         int row = Integer.parseInt(id.substring(1, 2));
         int col = Integer.parseInt(id.substring(2, 3));
-        game.getGameLogic().playerAction(row, col);
+        if(!game.userPlay(row, col)){
+            statusBar.setText(LocalizationHelper.getString("info.wrongCell"));
+            return;
+        }
         update();
-
-        /*if(game.getGameLogic().userWin())
-            userWin();
-        else if(game.getGameLogic().AIWin())
-            aiWin();
-        else if(game.getGameLogic().isDraw())
-            allCellOccupied();
-*/
     }
+
 
 
     // =========== GameListener ===========
-    public void updateStatusBar(String text){
-        Label label = (Label) scene.lookup("#statusBar");
-        label.setText(text);
-    }
+    @Override
     public void update(){
         char[][] gameMatrix = game.getGameLogic().getGameMatrix();
         for(int i = 0; i < 3; i++){
@@ -172,54 +169,39 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
         }
     }
 
-    public void gameEnded(){
+    @Override
+    public void gameOver(GameResult result) {
+        switch (result){
+            case WIN:
+                statusBar.setText(LocalizationHelper.getString("info.youWin"));
+                break;
+            case LOSE:
+                statusBar.setText(LocalizationHelper.getString("info.aiWin"));
+                break;
+            case DRAW:
+                statusBar.setText(LocalizationHelper.getString("info.draw"));
+                break;
+        }
+        gameEnded();
+    }
+
+
+    // =========== Private Methods ===========
+    private void gameEnded(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Game ended");
-        alert.setHeaderText("Do you want to start a new game?");
-        ButtonType yes = new ButtonType("Yes");
-        ButtonType no = new ButtonType("No");
-        ButtonType quit = new ButtonType("Quit");
+        alert.setTitle(LocalizationHelper.getString("gameOver"));
+        alert.setHeaderText(LocalizationHelper.getString("doYouWantStartNew"));
+        ButtonType yes = new ButtonType(LocalizationHelper.getString("yes"));
+        ButtonType no = new ButtonType(LocalizationHelper.getString("no"));
+        ButtonType quit = new ButtonType(LocalizationHelper.getString("quit"));
         alert.getButtonTypes().setAll(yes, no, quit);
         alert.showAndWait();
-        if(alert.getResult().getText().equals("Yes")){
+        if(alert.getResult().getText().equals(LocalizationHelper.getString("yes"))){
             game.newGame();
-            updateStatusBar("New Game started. It's your turn.");
+            statusBar.setText(LocalizationHelper.getString("info.newGame"));
         }
-        if(alert.getResult().getText().equals("Quit")){
+        if(alert.getResult().getText().equals(LocalizationHelper.getString("quit"))){
             quit(null);
         }
-    }
-
-    @Override
-    public void userWin() {
-        game.gamesOver();
-        update();
-        updateStatusBar(LocalizationHelper.getString("info.youWin"));
-        gameEnded();
-    }
-
-    @Override
-    public void aiWin() {
-        game.gamesOver();
-        update();
-        updateStatusBar(LocalizationHelper.getString("info.aiWin"));
-        gameEnded();
-    }
-
-    @Override
-    public void wrongCell() {
-        updateStatusBar(LocalizationHelper.getString("info.wrongCell"));
-    }
-
-    @Override
-    public void allCellOccupied() {
-        game.gamesOver();
-        updateStatusBar(LocalizationHelper.getString("info.draw"));
-        update();
-        gameEnded();
-    }
-
-    public void saveSettings(){
-        game.saveSettings();
     }
 }

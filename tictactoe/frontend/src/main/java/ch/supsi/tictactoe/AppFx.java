@@ -46,8 +46,6 @@ public class AppFx extends Application {
         Parent root = loader.load();
         playerInteractionsController = loader.getController();
         playerInteractionsController.setGame(game);
-        game.addListener(playerInteractionsController);
-        game.addGameLogicListener(playerInteractionsController);
 
         Scene scene = new Scene(root, 600, 650);
         stage.setResizable(false);

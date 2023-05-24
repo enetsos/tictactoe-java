@@ -5,13 +5,6 @@ import javafx.scene.control.Alert;
 
 public class About {
 
-    private static String name = "Tic Tac Toe";
-    private static String[] authors = {
-            "Matteo Arena",
-            "Walter Sostene Losa"
-    };
-    private static String version = "0.0.1";
-
     public static void showAbout() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(LocalizationHelper.getString("about"));

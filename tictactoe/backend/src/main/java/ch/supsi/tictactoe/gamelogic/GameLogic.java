@@ -7,7 +7,6 @@ import ch.supsi.tictactoe.player.User;
 
 public class GameLogic{
     private Player[] players;
-    private boolean gamesOver = false;
 
     private char[][] gameMatrix;
 
@@ -78,9 +77,6 @@ public class GameLogic{
         }
 
     }
-    public void setGamesOver(){
-        this.gamesOver = true;
-    }
     public void setUserColor(String color) {
         players[0].setColor(color);
     }
@@ -149,9 +145,8 @@ public class GameLogic{
         gameMatrix = new char[3][3];
         players[0].setGameMatrix(gameMatrix);
         players[1].setGameMatrix(gameMatrix);
-        gamesOver = false;
     }
-    public void playerAction(int x, int y){
+    public boolean playerAction(int x, int y){
 
         if(((User)players[0]).play(x, y)) {
             if (userWin()){
@@ -165,13 +160,8 @@ public class GameLogic{
                 }
             }
         }else {
-            listener.wrongCell();
+            return false;
         }
+        return true;
     }
-
-
-
-
-
-
 }

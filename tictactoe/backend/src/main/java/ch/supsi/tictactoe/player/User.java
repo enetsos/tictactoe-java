@@ -1,7 +1,5 @@
 package ch.supsi.tictactoe.player;
 
-import ch.supsi.tictactoe.player.Player;
-
 public class User extends Player {
 
     public static final char DEFAULT_SYMBOL = 'X';
