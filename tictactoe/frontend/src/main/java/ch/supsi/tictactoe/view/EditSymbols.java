@@ -1,34 +1,34 @@
-package ch.supsi.tictactoe.model;
+package ch.supsi.tictactoe.view;
 
 import ch.supsi.tictactoe.controller.EditSymbolsController;
 import ch.supsi.tictactoe.controller.LocalizationController;
 import ch.supsi.tictactoe.listener.GameListener;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import ch.supsi.tictactoe.model.GameLogic;
+import ch.supsi.tictactoe.model.LocalizationModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class EditSymbolsModel {
+public class EditSymbols {
 
     private final Parent root;
-    private static Character[] characters;
     private LocalizationController localizationController;
     private EditSymbolsController editSymbolsController;
     private static boolean isOpen = false;
+    private GameLogic logic;
+    private GameListener listener;
 
-    public EditSymbolsModel(GameLogic logic, GameListener listener) {
-        URL symbolMenuFxmlUrl = getClass().getResource("/editSymbols.fxml");
+    public EditSymbols(GameLogic logic, GameListener listener) {
+        this.logic = logic;
+        this.listener = listener;
+        URL symbolMenuFxmlUrl = getClass().getResource("/editsymbols.fxml");
         if (symbolMenuFxmlUrl == null) {
-            throw new RuntimeException("symbolmenu.fxml not found");
+            throw new RuntimeException("editsymbols.fxml not found");
         }
 
         LocalizationModel localizationModel = LocalizationModel.getInstance();
@@ -37,8 +37,7 @@ public class EditSymbolsModel {
 
         FXMLLoader symbolMenuLoader = new FXMLLoader(symbolMenuFxmlUrl, localizationController.getResourceBundle());
         editSymbolsController = new EditSymbolsController();
-        editSymbolsController.setGameLogic(logic);
-        editSymbolsController.setListener(listener);
+
         symbolMenuLoader.setControllerFactory(c -> editSymbolsController);
 
         try {
@@ -58,23 +57,11 @@ public class EditSymbolsModel {
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setScene(scene);
-
-        characters = new Character[26];
-        for (int i = 0; i < characters.length; i++){
-            characters[i] = (char)(65 + i);
-        }
-
-        ComboBox<Character> userBox = (ComboBox<Character>) scene.lookup("#userCombo");
-        ComboBox<Character> aiBox = (ComboBox<Character>) scene.lookup("#aiCombo");
-
-        userBox.getItems().addAll(characters);
-        aiBox.getItems().addAll(characters);
-
-        editSymbolsController.setCombos(userBox, aiBox);
-        editSymbolsController.setColorPickers((ColorPicker) scene.lookup("#userColorPicker"), (ColorPicker) scene.lookup("#aiColorPicker"));
-
-        stage.isAlwaysOnTop();
         stage.setOnCloseRequest(e -> isOpen = false);
+
+        editSymbolsController.setGameLogic(logic);
+        editSymbolsController.setListener(listener);
+
         stage.show();
     }
 

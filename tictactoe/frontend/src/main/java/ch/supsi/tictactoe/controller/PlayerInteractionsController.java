@@ -1,22 +1,19 @@
 package ch.supsi.tictactoe.controller;
 
-import ch.supsi.tictactoe.About;
+import ch.supsi.tictactoe.view.About;
 import ch.supsi.tictactoe.listener.GameLogicListener;
 import ch.supsi.tictactoe.listener.GameListener;
 import ch.supsi.tictactoe.model.*;
+import ch.supsi.tictactoe.view.EditSymbols;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
-import java.awt.desktop.PreferencesEvent;
-import java.awt.desktop.PreferencesHandler;
 import java.io.File;
-import java.util.Locale;
 
 public class PlayerInteractionsController implements GameListener, GameLogicListener {
 
@@ -112,7 +109,7 @@ public class PlayerInteractionsController implements GameListener, GameLogicList
     @FXML
     public void editSymbols(ActionEvent e) {
 
-        EditSymbolsModel esm = new EditSymbolsModel(game.getGameLogic(), this);
+        EditSymbols esm = new EditSymbols(game.getGameLogic(), this);
         esm.show();
 
         saveSettings();

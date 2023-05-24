@@ -8,27 +8,39 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
-import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 
 public class EditSymbolsController {
     private GameLogic logic;
     private GameListener listener;
     private SettingsSaver saver = new SettingsSaver();
-
+    private Character[] characters = new Character[26];
     @FXML
     private ComboBox aiCombo;
     @FXML
     private ComboBox userCombo;
+    @FXML
+    private ColorPicker userColorPicker;
+    @FXML
+    private ColorPicker aiColorPicker;
     private boolean finishedCombo = true;
 
-    public void userCharEdit(@NotNull ActionEvent actionEvent) {
+
+    // =========== CONSTRUCTOR ===========
+    public EditSymbolsController(){
+        for(int i = 0; i < 26; i++){
+            characters[i] = (char)(i+65);
+        }
+    }
+
+    // =========== FXML ===========
+    @FXML
+    public void userCharEdit(ActionEvent actionEvent) {
         if(!finishedCombo)
             return;
         finishedCombo = false;
 
-        ComboBox<Character> combo = (ComboBox<Character>)actionEvent.getSource();
-        char val = combo.getValue();
+        char val = (char)userCombo.getValue();
 
         aiCombo.getItems().add(logic.getUserChar());
         Collections.sort(aiCombo.getItems());
@@ -36,18 +48,18 @@ public class EditSymbolsController {
         aiCombo.getItems().remove(val-65);
 
         logic.setUserChar(val);
-        saver.save(logic);
+        saveSettings();
         listener.update();
         finishedCombo = true;
     }
 
+    @FXML
     public void aiCharEdit(ActionEvent actionEvent) {
         if(!finishedCombo)
             return;
         finishedCombo = false;
 
-        ComboBox<Character> combo = (ComboBox<Character>)actionEvent.getSource();
-        char val = combo.getValue();
+        char val = (char)aiCombo.getValue();
 
         userCombo.getItems().add(logic.getAiChar());
         Collections.sort(userCombo.getItems());
@@ -55,45 +67,53 @@ public class EditSymbolsController {
         userCombo.getItems().remove(val-65);
 
         logic.setAIChar(val);
-        saver.save(logic);
+        saveSettings();
         listener.update();
         finishedCombo = true;
     }
 
-    public void setCombos(ComboBox<Character> user, ComboBox<Character> ai){
-
-        ai.getItems().remove(logic.getUserChar() - 65);
-        user.getItems().remove(logic.getAiChar() - 65);
-
-        user.setValue(logic.getUserChar());
-        ai.setValue(logic.getAiChar());
-
-
+    @FXML
+    public void changeUserColor(ActionEvent actionEvent) {
+        logic.setUserColor(((ColorPicker)actionEvent.getSource()).getValue().toString());
+        saveSettings();
         listener.update();
     }
 
-    public void setGameLogic(GameLogic logic){
-        this.logic = logic;
+    @FXML
+    public void changeAiColor(ActionEvent actionEvent) {
+        logic.setAiColor(((ColorPicker)actionEvent.getSource()).getValue().toString());
+        saveSettings();
+        listener.update();
     }
+
+    // =========== METHODS ===========
 
     public void setListener(GameListener listener){
         this.listener = listener;
     }
-    public void setColorPickers(ColorPicker user, ColorPicker ai){
-        user.setValue(Color.web(logic.getUserColor()));
-        ai.setValue(Color.web(logic.getAiColor()));
+
+
+    public void setGameLogic(GameLogic logic){
+        this.logic = logic;
+
+        userCombo.getItems().addAll(characters);
+        aiCombo.getItems().addAll(characters);
+
+        aiCombo.getItems().remove(logic.getUserChar() - 65);
+        userCombo.getItems().remove(logic.getAiChar() - 65);
+
+        userCombo.setValue(logic.getUserChar());
+        aiCombo.setValue(logic.getAiChar());
+
+        userColorPicker.setValue(Color.web(logic.getUserColor()));
+        aiColorPicker.setValue(Color.web(logic.getAiColor()));
     }
 
-    public void changeUserColor(ActionEvent actionEvent) {
-        logic.setUserColor(((ColorPicker)actionEvent.getSource()).getValue().toString());
+    private void saveSettings(){
         saver.save(logic);
-        listener.update();
     }
 
-    public void changeAiColor(ActionEvent actionEvent) {
-        logic.setAiColor(((ColorPicker)actionEvent.getSource()).getValue().toString());
-        saver.save(logic);
-        listener.update();
-    }
+
+
 }
 
