@@ -98,7 +98,7 @@ public class Ai extends Player implements Serializable {
         //int count = 0;
         //Check diagonals
         for(int i = 0; i < 3; i++){
-            if(gameMatrix[i][i] != null && gameMatrix[2-i][i] != null){
+
                 if(gameMatrix[i][i] != null){
                     if(gameMatrix[i][i].getPlayerType() == p){
                         countRow++;
@@ -110,7 +110,7 @@ public class Ai extends Player implements Serializable {
                         countCol++;
                     }
                 }
-            }
+
         }
         if(countRow == 2){
             for(int i = 0; i < 3; i++){

@@ -25,7 +25,6 @@ public class GameSaver{
         Player[][] result = null;
         try {
             FileInputStream fis = new FileInputStream(file);
-            System.out.println("Done");
             ObjectInputStream ois = new ObjectInputStream(fis);
             result = (Player[][]) ois.readObject();
         } catch (IOException e) {

@@ -122,7 +122,7 @@ public class PlayerInteractionsController implements GameListener {
         if(id.equals("en")){
             settingsModel.setLanguage("en-EN");
         }else if(id.equals("it")){
-            settingsModel.setLanguage("it-IT");
+            settingsModel.setLanguage("it-CH");
         }
         settingsModel.save();
     }

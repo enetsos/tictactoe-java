@@ -41,7 +41,13 @@ public class LocalizationModel implements LocalizationHandler {
     public void init(String bundleName, Locale locale) {
         this.bundleName = bundleName;
         this.locale = locale;
-        this.translations = ResourceBundle.getBundle(bundleName, locale);
+        try {
+            this.translations = ResourceBundle.getBundle(bundleName, locale);
+        } catch (MissingResourceException e) {
+            this.translations = ResourceBundle.getBundle(bundleName, Locale.forLanguageTag("en-EN"));
+        }
+
+        //this.translations = ResourceBundle.getBundle(bundleName, locale);
         this.initialized = true;
     }
 

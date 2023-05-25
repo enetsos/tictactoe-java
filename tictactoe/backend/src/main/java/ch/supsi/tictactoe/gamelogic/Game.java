@@ -33,7 +33,7 @@ public class Game implements GameLogicListener{
 
 
     public void loadGame(File file){
-        System.out.println("Loading game");
+
         Player[][] tmp = GameSaver.load(file, gameLogic.getGameMatrix());
         if(tmp != null){
             gameLogic.setGameMatrix(tmp);
