@@ -150,8 +150,6 @@ public class PlayerInteractionsController implements GameListener {
         update();
     }
 
-
-
     // =========== GameListener ===========
     @Override
     public void update(){

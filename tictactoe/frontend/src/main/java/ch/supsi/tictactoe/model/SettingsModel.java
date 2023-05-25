@@ -29,7 +29,7 @@ public class SettingsModel {
             appSettingsDir = userHome + File.separator + ".tictactoe";
         }
 
-        String appSettingsPath = appSettingsDir + File.separator + "settings.txt";
+        String appSettingsPath = appSettingsDir + File.separator + "user.prefs";
 
         File dir = new File(appSettingsDir);
         if(!dir.exists()){
