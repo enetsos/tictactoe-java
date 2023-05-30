@@ -35,7 +35,7 @@ stages:
   - install_package
   - git_inspector
 
-image: tommasoagnola/ingsw1:1.0.2
+image: tommasoagnola/ingsw1:1.0.6
 
 # Cache downloaded dependencies and plugins between builds.
 # To keep cache across branches add 'key: "$CI_JOB_NAME"'
