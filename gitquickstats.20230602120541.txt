@@ -1,0 +1,44 @@
+Contribution stats (by author) on the current branch:
+
+	 Tommaso Agnola <tommaso.agnola@supsi.ch>:
+	  insertions:    106	(3%)
+	  deletions:     29	(2%)
+	  files:         4	(2%)
+	  commits:       4	(6%)
+	  lines changed: 135	(3%)
+	  first commit:  Thu Apr 20 16:59:10 2023 +0000
+	  last commit:   Tue May 30 09:35:47 2023 +0000
+
+	 gitlab-configurator <group1025_bot@noreply.gitlab-edu.supsi.ch>:
+	  insertions:    92	(3%)
+	  deletions:     0	(0%)
+	  files:         1	(0%)
+	  commits:       1	(2%)
+	  lines changed: 92	(2%)
+	  first commit:  Wed Mar 1 09:34:59 2023 +0000
+	  last commit:   Wed Mar 1 09:34:59 2023 +0000
+
+	 Walter Losa <walter.losa@student.supsi.ch>:
+	  insertions:    624	(18%)
+	  deletions:     85	(7%)
+	  files:         52	(21%)
+	  commits:       14	(22%)
+	  lines changed: 709	(15%)
+	  first commit:  Mon Apr 3 14:01:11 2023 +0200
+	  last commit:   Thu May 25 11:37:22 2023 +0200
+
+	 Matteo Arna <matteo.arna@student.supsi.ch>:
+	  insertions:    2558	(76%)
+	  deletions:     1179	(91%)
+	  files:         185	(76%)
+	  commits:       46	(71%)
+	  lines changed: 3737	(80%)
+	  first commit:  Mon Mar 13 11:53:49 2023 +0100
+	  last commit:   Thu May 25 13:34:19 2023 +0200
+
+	total:
+	  insertions:    3380	(100%)
+	  deletions:     1293	(100%)
+	  files:         242	(100%)
+	  commits:       65	(100%)
+
